@@ -50,12 +50,12 @@
       </div>
     </header>
 
-    <div class="content">
 
+<!-- Conteúdo -->
+<main class="content">
+    @yield('content')
+</main>
 
-
-
-    </div>
 
   </div>
 
