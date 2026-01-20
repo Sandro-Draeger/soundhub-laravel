@@ -10,7 +10,7 @@ protected $fillable = [
     'title',
     'artist',
     'year',
-    'cover',
+    'image',
 ];
 
 }

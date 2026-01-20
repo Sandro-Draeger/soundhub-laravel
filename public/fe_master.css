@@ -430,5 +430,19 @@ body {
   box-sizing: border-box;
 }
 
+/* Album Page */
+
+.album-form {
+  max-width: 600px;
+}
+
+.album-form h1 {
+  margin-bottom: 30px;
+}
+
+.album-form .field {
+  margin-bottom: 20px;
+}
+
 
 

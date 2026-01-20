@@ -18,7 +18,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/music', [MusicController::class, 'index'])->name('music.index');
 //});
 
-//rotas para adicionar, editar e deletar albuns
+//rotas para adicionar, editar e deletar
 Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
 Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
 
