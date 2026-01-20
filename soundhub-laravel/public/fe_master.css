@@ -1,0 +1,97 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fonte base */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: #121212;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Título / logo */
+.sidebar .brand h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #eee;
+}
+
+/* Menu */
+.sidebar .menu {
+  flex-grow: 1;
+}
+
+.sidebar .menu a {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  color: #ccc;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar .menu a .icon {
+  margin-right: 12px;
+  font-size: 22px;
+}
+
+.sidebar .menu a:hover,
+.sidebar .menu a.active {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+/* Seção “Now Playing” */
+.now-playing {
+  padding: 15px 10px;
+  border-top: 1px solid #333;
+  margin-top: 20px;
+}
+
+.now-playing p {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+}
+
+.track-icon {
+  font-size: 36px;
+  margin-right: 12px;
+}
+
+.track-info .title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.track-info .artist {
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Área principal do site */
+.content {
+  flex-grow: 1;
+  padding: 30px;
+  background: #fafafa;
+  color: #222;
+}
