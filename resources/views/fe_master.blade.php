@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>soundhub</title>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="{{ asset('fe_master.css') }}">
 </head>
 <body>
@@ -15,7 +15,7 @@
      </div>
 
     <nav class="menu">
-      <a href="#" class="active"><span class="icon">🏠</span> Home</a>
+      <a href="#" class="active"><span class="icon"></span> Home</a>
       <a href="#"><span class="icon">🎧</span> Browse</a>
       <a href="#"><span class="icon">🎶</span> Playlists</a>
       <a href="#"><span class="icon">📻</span> Radio</a>
@@ -32,7 +32,7 @@
 
     <header class="topbar">
       <div class="search-box">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"><i class="bi bi-search"></i></span>
         <input type="text" placeholder="Pesquisar músicas, artistas..." />
       </div>
 
