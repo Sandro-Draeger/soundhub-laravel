@@ -9,18 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
+    public function up()
 {
-    Schema::create('albums', function (Blueprint $table) {
+    Schema::create('bands', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('band_id')->constrained()->onDelete('cascade');
-        $table->string('title');
-        $table->date('release_date')->nullable();
-        $table->string('image')->nullable();
+        $table->string('name');
+        $table->string('photo')->nullable();
         $table->timestamps();
     });
 }
-
 
 
     /**
@@ -28,6 +25,6 @@ public function up()
      */
     public function down(): void
     {
-        Schema::dropIfExists('albums');
+        Schema::dropIfExists('bands');
     }
 };

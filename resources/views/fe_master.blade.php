@@ -16,10 +16,9 @@
 
     <nav class="menu">
       <a href="#" class="active"><span class="icon"></span> Home</a>
-      <a href="#"><span class="icon">🎧</span> Browse</a>
-      <a href="#"><span class="icon">🎶</span> Playlists</a>
-      <a href="#"><span class="icon">📻</span> Radio</a>
-      <a href="#"><span class="icon">⚙️</span> Settings</a>
+      <a href="#"><span class="icon"></span> Browse</a>
+      <a href="#"><span class="icon"></span> Playlists</a>
+      <a href="#"><span class="icon"></span> Admin Area</a>
     </nav>
 
     <div class="now-playing">
@@ -30,7 +29,7 @@
   <!-- MAIN -->
   <div class="main">
 
-    <header class="topbar">
+    {{-- <header class="topbar">
       <div class="search-box">
         <span class="search-icon"><i class="bi bi-search"></i></span>
         <input type="text" placeholder="Pesquisar músicas, artistas..." />
@@ -48,7 +47,7 @@
           <a href="#">Logout</a>
         </div>
       </div>
-    </header>
+    </header> --}}
 
 
 <!-- Conteúdo -->

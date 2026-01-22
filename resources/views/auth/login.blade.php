@@ -10,7 +10,7 @@
 <body class="login-page">
 
   <div class="login-wrapper">
-    <form method="POST" action="{{ route('login.submit') }}" class="login-card">
+    <form method="POST" action="{{ route('login') }}" class="login-card">
       @csrf
 
       <div class="login-brand">

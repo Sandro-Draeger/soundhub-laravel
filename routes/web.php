@@ -4,28 +4,30 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ItunesController;
+use App\Http\Controllers\BandController;
 
-//rota para homepage
-Route::get('/music', [MusicController::class, 'index']);
-
-//rota para o Login
-
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-//Route::middleware('auth')->group(function () {
-    Route::get('/music', [MusicController::class, 'index'])->name('music.index');
-//});
-
-//rotas para adicionar, editar e deletar
-Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
-Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
-
-Route::get('/albums/{album}/edit', [AlbumController::class, 'edit'])->name('albums.edit');
-Route::put('/albums/{album}', [AlbumController::class, 'update'])->name('albums.update');
-
-
+// Home
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Página principal de músicas
+Route::get('/music', [MusicController::class, 'index'])
+    ->name('music.index');
+
+//rota bandController
+Route::resource('/bands', BandController::class);
+
+
+
+// API do iTunes (JSON)
+Route::get('/itunes/search', [ItunesController::class, 'search']);
+
+//Quando clicar no álbum busca músicas
+Route::get('/admin/albums/{collectionId}', [AlbumController::class, 'showFromItunes']);
+// Albums
+Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
+Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
+Route::get('/albums/{album}/edit', [AlbumController::class, 'edit'])->name('albums.edit');
+Route::put('/albums/{album}', [AlbumController::class, 'update'])->name('albums.update');
