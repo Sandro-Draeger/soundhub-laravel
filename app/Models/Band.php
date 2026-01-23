@@ -10,7 +10,11 @@ class Band extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'photo'];
+    protected $fillable = [
+        'id',
+        'name',
+        'photo',
+        ];
 
     public function albums()
     {

@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Song extends Model
+{
+
+    protected $fillable = [
+        'album_id',
+        'title',
+        'duration',
+        'itunes_id',
+        'itunes_url',
+    ];
+
+    public function album() {
+    return $this->belongsTo(Album::class);
+}
+}

@@ -12,7 +12,7 @@ class ItunesController extends Controller
 
         $response = Http::get('https://itunes.apple.com/search', [
             'term' => $term,
-            'entity' => 'song',
+            'entity' => 'album',
             'limit' => 10
         ]);
 

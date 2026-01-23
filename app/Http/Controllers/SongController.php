@@ -21,7 +21,7 @@ public function index(Request $request)
         $albums = $response->json()['results'] ?? [];
     }
 
-    return view('music.index', compact('albums'));
+    return view('song.index', compact('albums'));
 }
 
 

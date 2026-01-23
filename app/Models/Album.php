@@ -12,6 +12,8 @@ class Album extends Model
         'title',
         'release_date',
         'image',
+        'itunes_id',
+        'itunes_url',
     ];
 
     public function band()
