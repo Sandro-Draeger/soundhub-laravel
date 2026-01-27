@@ -1,7 +1,7 @@
 @extends('fe_master')
 
 @section('content')
-<div class="container" style="padding: 30px; max-width: 1000px;">
+<div class="container" style="padding: 10px; max-width: 1000px;">
 
     <div style="margin-bottom: 30px;">
         <a href="{{ route('itunes.search') }}" style="color: #667eea; text-decoration: none;">← Voltar à Busca</a>
@@ -53,30 +53,14 @@
 
                 @if(auth()->check() && auth()->user()->role === 'admin')
                     <div style="display: grid; gap: 10px;">
-                        <form method="POST" action="{{ route('itunes.import-artist') }}" style="display: inline;">
-                            @csrf
-                            <input type="hidden" name="artist_name" value="{{ $album['artistName'] }}">
-                            <input type="hidden" name="artist_photo" value="{{ $album['artworkUrl100'] ?? '' }}">
-                            <button type="submit" style="
-                                background: #4caf50;
-                                color: white;
-                                padding: 12px 25px;
-                                border: none;
-                                border-radius: 8px;
-                                font-weight: 600;
-                                cursor: pointer;
-                                width: 100%;
-                            ">✓ Importar Artista</button>
-                        </form>
-
                         <form method="POST" action="{{ route('itunes.import-album') }}" style="display: inline;">
                             @csrf
-                            <input type="hidden" name="band_id" value="{{ auth()->check() ? 1 : '' }}">
+                            <input type="hidden" name="artist_name" value="{{ $album['artistName'] ?? '' }}">
                             <input type="hidden" name="album_name" value="{{ $album['collectionName'] ?? '' }}">
                             <input type="hidden" name="release_date" value="{{ $album['releaseDate'] ?? '' }}">
                             <input type="hidden" name="itunes_id" value="{{ $collectionId }}">
                             <button type="submit" style="
-                                background: #2196f3;
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                                 color: white;
                                 padding: 12px 25px;
                                 border: none;
@@ -97,24 +81,22 @@
 
         <table style="width: 100%; border-collapse: collapse;">
             <thead>
-                <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
+                <tr style="background: #5f5f5f; border-bottom: 2px solid #181818;">
                     <th style="padding: 15px; text-align: left; font-weight: 600;">Nº</th>
                     <th style="padding: 15px; text-align: left; font-weight: 600;">Música</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Artista</th>
                     <th style="padding: 15px; text-align: center; font-weight: 600;">Duração</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($songs as $index => $song)
-                    <tr style="border-bottom: 1px solid #eee;">
+                    <tr style="border-bottom: 1px solid #131313;">
                         <td style="padding: 15px;">{{ $index + 1 }}</td>
                         <td style="padding: 15px;">{{ $song['trackName'] ?? 'Sem nome' }}</td>
-                        <td style="padding: 15px;">{{ $song['artistName'] ?? '-' }}</td>
                         <td style="padding: 15px; text-align: center;">
                             @if(isset($song['trackTimeMillis']))
                                 {{ gmdate('i:s', $song['trackTimeMillis'] / 1000) }}
                             @else
-                                -
+
                             @endif
                         </td>
                     </tr>

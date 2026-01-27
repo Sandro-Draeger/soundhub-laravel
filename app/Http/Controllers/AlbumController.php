@@ -11,14 +11,14 @@ class AlbumController extends Controller
 {
     public function index()
     {
-        $albums = Album::with('band')->get();
+        $albums = Album::with('band', 'songs')->get();
         return view('albums.index', compact('albums'));
     }
 
     public function create()
     {
         $bands = Band::all();
-        return view('albums.create', compact('bands'));
+        return view('albums.form', compact('bands'));
     }
 
     public function store(Request $request)
@@ -47,7 +47,7 @@ class AlbumController extends Controller
     public function edit(Album $album)
     {
         $bands = Band::all();
-        return view('albums.edit', compact('album', 'bands'));
+        return view('albums.form', compact('album', 'bands'));
     }
 
     public function update(Request $request, Album $album)

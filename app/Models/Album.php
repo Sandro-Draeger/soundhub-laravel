@@ -10,6 +10,7 @@ class Album extends Model
     protected $fillable = [
         'band_id',
         'title',
+        'artist',
         'release_date',
         'image',
         'itunes_id',
@@ -21,8 +22,8 @@ class Album extends Model
         return $this->belongsTo(Band::class);
     }
 
-    public function musics()
+    public function songs()
     {
-        return $this->hasMany(Music::class);
+        return $this->hasMany(Song::class);
     }
 }

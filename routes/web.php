@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MusicController;
+use App\Http\Controllers\SongController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ItunesController;
 use App\Http\Controllers\BandController;
@@ -25,6 +25,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // ========== DASHBOARD (Autenticado) ==========
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/dashboard/album/{id}', [DashboardController::class, 'showAlbum'])->name('dashboard.album')->middleware('auth');
+Route::delete('/dashboard/album/{id}', [DashboardController::class, 'destroyAlbum'])->name('dashboard.album.destroy')->middleware('auth');
+Route::get('/dashboard/album/{id}/manage-songs', [DashboardController::class, 'manageSongs'])->name('dashboard.album.manage-songs')->middleware('auth');
+Route::delete('/dashboard/album/{albumId}/song/{songId}', [DashboardController::class, 'destroySong'])->name('dashboard.album.song.destroy')->middleware('auth');
 
 // ========== BANDAS  ==========
 Route::resource('bands', BandController::class);
@@ -56,7 +60,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // ========== MÚSICAS ==========
-Route::get('/music', [MusicController::class, 'index'])->name('music.index');
+Route::get('/music', [SongController::class, 'index'])->name('music.index');
 
 // ========== iTunes API ==========
 Route::get('/itunes/search', [ItunesController::class, 'searchPage'])->name('itunes.search');

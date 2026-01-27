@@ -153,9 +153,9 @@
         >
       </div>
 
-      <button type="submit" class="login-button">
-        Entrar
-      </button>
+      <button type="submit" class="register-button">
+  Entrar
+</button>
 
       <div class="register-link">
         Não tem conta? <a href="{{ route('register') }}">Cadastre-se</a>

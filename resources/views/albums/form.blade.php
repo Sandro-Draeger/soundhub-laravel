@@ -26,30 +26,45 @@
     </div>
 
     <div class="field">
-      <label>Artista</label>
+      <label>Banda/Artista</label>
+      <select name="band_id" required>
+        <option value="">Selecione uma banda</option>
+        @foreach($bands as $band)
+          <option value="{{ $band->id }}" {{ old('band_id', $album->band_id ?? '') == $band->id ? 'selected' : '' }}>
+            {{ $band->name }}
+          </option>
+        @endforeach
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Título</label>
       <input
-        name="artist"
-        value="{{ old('artist', $album->artist ?? '') }}"
+        name="title"
+        value="{{ old('title', $album->title ?? '') }}"
         required
       >
     </div>
 
     <div class="field">
-      <label>Ano</label>
+      <label>Data de Lançamento</label>
       <input
-        name="year"
-        value="{{ old('year', $album->year ?? '') }}"
-        placeholder="2024"
+        type="date"
+        name="release_date"
+        value="{{ old('release_date', $album->release_date ?? '') }}"
       >
     </div>
 
     <div class="field">
-      <label>Capa</label>
-      <input type="file" name="cover">
+      <label>Imagem/Capa</label>
+      <input type="file" name="image" accept="image/*">
     </div>
 
-    @if(isset($album) && $album->cover)
-      <img src="{{ asset('storage/'.$album->cover) }}" width="120">
+    @if(isset($album) && $album->image)
+      <div class="field">
+        <label>Imagem Atual:</label><br>
+        <img src="{{ asset('storage/'.$album->image) }}" width="120" style="border-radius: 8px; margin-top: 10px;">
+      </div>
     @endif
 
     <button class="login-button">
