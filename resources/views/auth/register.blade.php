@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ asset('fe_master.css') }}">
   <style>
     .register-page {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: black;
       min-height: 100vh;
       display: flex;
       justify-content: center;

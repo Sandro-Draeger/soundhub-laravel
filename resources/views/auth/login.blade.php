@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ asset('fe_master.css') }}">
   <style>
     .login-page {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: black;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -20,6 +20,7 @@
       width: 100%;
       max-width: 400px;
       padding: 20px;
+      background: black;
     }
 
     .login-card {
@@ -45,7 +46,7 @@
     .field label {
       display: block;
       margin-bottom: 8px;
-      color: #333;
+      color: black;
       font-weight: 600;
       font-size: 14px;
     }
@@ -75,7 +76,7 @@
       display: block;
     }
 
-    .login-button {
+    .register-button {
       width: 100%;
       padding: 12px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
