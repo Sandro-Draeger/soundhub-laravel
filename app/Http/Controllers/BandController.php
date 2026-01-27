@@ -10,7 +10,7 @@ class BandController extends Controller
 {
     public function index()
     {
-        $bands = Band::all();
+        $bands = Band::with('albums')->get();
         return view('bands.index', compact('bands'));
     }
 
@@ -23,7 +23,7 @@ class BandController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'photo' => 'nullable|image',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $path = null;
@@ -36,7 +36,7 @@ class BandController extends Controller
             'photo' => $path,
         ]);
 
-        return redirect()->route('bands.index');
+        return redirect()->route('bands.index')->with('success', 'Banda criada com sucesso!');
     }
 
     public function show(Band $band)
@@ -53,7 +53,7 @@ class BandController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'photo' => 'nullable|image',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('photo')) {
@@ -63,17 +63,12 @@ class BandController extends Controller
         $band->name = $request->name;
         $band->save();
 
-        return redirect()->route('bands.index');
+        return redirect()->route('bands.index')->with('success', 'Banda atualizada com sucesso!');
     }
 
     public function destroy(Band $band)
     {
-        if (auth()->user()->role !== 'admin') {
-            abort(403);
-        }
-
         $band->delete();
-
-        return redirect()->route('bands.index');
+        return redirect()->route('bands.index')->with('success', 'Banda removida com sucesso!');
     }
 }

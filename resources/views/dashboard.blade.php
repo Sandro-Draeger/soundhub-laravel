@@ -43,8 +43,10 @@
         <ul>
             @foreach($albums as $album)
                 <li>
-                    {{ $album->name }}
-                    ({{ $album->band->name }})
+                    {{ $album->title }}
+                    @if($album->band)
+                        ({{ $album->band->name }})
+                    @endif
                     <a href="{{ route('albums.show', $album) }}">Ver</a>
                 </li>
             @endforeach

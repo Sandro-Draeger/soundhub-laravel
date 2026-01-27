@@ -11,7 +11,8 @@ class DashboardController extends Controller
     public function index()
     {
         $bands = Band::all();
-        $albums = Album::with('band')->get();
+        // Carrega apenas álbuns que têm band_id válido
+        $albums = Album::whereNotNull('band_id')->with('band')->get();
 
         return view('dashboard', compact('bands', 'albums'));
     }

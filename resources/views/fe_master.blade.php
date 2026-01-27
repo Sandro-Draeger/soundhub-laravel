@@ -6,6 +6,25 @@
 <title>soundhub</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="{{ asset('fe_master.css') }}">
+<style>
+  .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    transition: background 0.2s;
+    border-radius: 6px;
+  }
+
+  .menu a:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .menu a.active {
+    background: #667eea;
+    color: white;
+  }
+</style>
 </head>
 <body>
 
@@ -15,40 +34,99 @@
      </div>
 
     <nav class="menu">
-      <a href="#" class="active"><span class="icon"></span> Home</a>
-      <a href="#"><span class="icon"></span> Browse</a>
-      <a href="#"><span class="icon"></span> Playlists</a>
-      <a href="#"><span class="icon"></span> Admin Area</a>
+      <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
+        <i class="bi bi-house"></i> Home
+      </a>
+
+      <a href="{{ route('bands.index') }}" class="{{ request()->routeIs('bands.*') ? 'active' : '' }}">
+        <i class="bi bi-music-note-beamed"></i> Artistas
+      </a>
+
+      <a href="{{ route('albums.index') }}" class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
+        <i class="bi bi-disc"></i> Álbuns
+      </a>
+
+      @auth
+        <a href="{{ route('playlists.index') }}" class="{{ request()->routeIs('playlists.*') ? 'active' : '' }}">
+          <i class="bi bi-list-ul"></i> Minhas Playlists
+        </a>
+
+        <a href="{{ route('itunes.search') }}" class="{{ request()->routeIs('itunes.*') ? 'active' : '' }}">
+          <i class="bi bi-search"></i> Buscar iTunes
+        </a>
+
+        @if(auth()->user()->role === 'admin')
+          <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
+
+          <div style="padding: 10px 20px; font-weight: 600; color: rgba(255,255,255,0.7); font-size: 12px;">
+            ADMINISTRADOR
+          </div>
+
+          <a href="{{ route('bands.create') }}" class="{{ request()->routeIs('bands.create') ? 'active' : '' }}">
+            <i class="bi bi-plus-circle"></i> Adicionar Artista
+          </a>
+
+          <a href="{{ route('albums.create') }}" class="{{ request()->routeIs('albums.create') ? 'active' : '' }}">
+            <i class="bi bi-plus-circle"></i> Adicionar Álbum
+          </a>
+
+          <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+            <i class="bi bi-speedometer2"></i> Dashboard
+          </a>
+        @endif
+
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
+
+        <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+          @csrf
+          <button type="submit" style="
+            width: 100%;
+            background: none;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            font-size: 14px;
+          " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">
+            <i class="bi bi-box-arrow-right"></i> Sair
+          </button>
+        </form>
+      @else
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
+
+        <a href="{{ route('login') }}" class="{{ request()->routeIs('login') ? 'active' : '' }}">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </a>
+
+        <a href="{{ route('register') }}" class="{{ request()->routeIs('register') ? 'active' : '' }}">
+          <i class="bi bi-person-plus"></i> Registrar
+        </a>
+      @endauth
     </nav>
 
     <div class="now-playing">
-      <p>Now Playing</p>
+      @auth
+        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Usuário</p>
+        <p style="margin: 0; font-weight: 600;">{{ auth()->user()->name }}</p>
+        @if(auth()->user()->role === 'admin')
+          <span style="display: inline-block; background: #667eea; color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-top: 5px;">ADMIN</span>
+        @else
+          <span style="display: inline-block; background: #666; color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-top: 5px;">USER</span>
+        @endif
+      @else
+        <p>SoundHub</p>
+      @endauth
     </div>
   </div>
 
   <!-- MAIN -->
   <div class="main">
-
-    {{-- <header class="topbar">
-      <div class="search-box">
-        <span class="search-icon"><i class="bi bi-search"></i></span>
-        <input type="text" placeholder="Pesquisar músicas, artistas..." />
-      </div>
-
-      <div class="user-menu">
-        <button class="user-button">
-          <img src="https://i.pravatar.cc/40" alt="User">
-          <span class="username">João</span>
-          <span class="arrow">▾</span>
-        </button>
-
-        <div class="dropdown">
-          <a href="#">Perfil</a>
-          <a href="#">Logout</a>
-        </div>
-      </div>
-    </header> --}}
-
 
 <!-- Conteúdo -->
 <main class="content">

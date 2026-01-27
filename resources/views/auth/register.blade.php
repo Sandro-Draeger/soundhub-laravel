@@ -2,12 +2,12 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>SoundHub • Login</title>
+  <title>SoundHub • Registro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="{{ asset('fe_master.css') }}">
   <style>
-    .login-page {
+    .register-page {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
@@ -16,25 +16,25 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .login-wrapper {
+    .register-wrapper {
       width: 100%;
-      max-width: 400px;
+      max-width: 500px;
       padding: 20px;
     }
 
-    .login-card {
+    .register-card {
       background: white;
       border-radius: 12px;
       padding: 40px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     }
 
-    .login-brand {
+    .register-brand {
       text-align: center;
       margin-bottom: 30px;
     }
 
-    .login-brand img {
+    .register-brand img {
       height: 60px;
     }
 
@@ -75,7 +75,7 @@
       display: block;
     }
 
-    .login-button {
+    .register-button {
       width: 100%;
       padding: 12px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -88,43 +88,58 @@
       transition: transform 0.2s;
     }
 
-    .login-button:hover {
+    .register-button:hover {
       transform: translateY(-2px);
     }
 
-    .login-button:active {
+    .register-button:active {
       transform: translateY(0);
     }
 
-    .register-link {
+    .login-link {
       text-align: center;
       margin-top: 20px;
       font-size: 14px;
       color: #666;
     }
 
-    .register-link a {
+    .login-link a {
       color: #667eea;
       text-decoration: none;
       font-weight: 600;
     }
 
-    .register-link a:hover {
+    .login-link a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
-<body class="login-page">
+<body class="register-page">
 
-  <div class="login-wrapper">
-    <form method="POST" action="{{ route('login') }}" class="login-card">
+  <div class="register-wrapper">
+    <form method="POST" action="{{ route('register') }}" class="register-card">
       @csrf
 
-      <div class="login-brand">
+      <div class="register-brand">
         <img src="{{ asset('sound-hub-icon.svg') }}" alt="SoundHub">
       </div>
 
-      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Login</h2>
+      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Criar Conta</h2>
+
+      <div class="field">
+        <label>Nome Completo</label>
+        <input
+          class="input @error('name') error @enderror"
+          name="name"
+          type="text"
+          required
+          value="{{ old('name') }}"
+          placeholder="João Silva"
+        >
+        @error('name')
+          <span class="error-text">{{ $message }}</span>
+        @enderror
+      </div>
 
       <div class="field">
         <label>Email</label>
@@ -149,19 +164,34 @@
           required
           class="input @error('password') error @enderror"
           placeholder="••••••••"
+          minlength="8"
+        >
+        @error('password')
+          <span class="error-text">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <div class="field">
+        <label>Confirmar Senha</label>
+        <input
+          name="password_confirmation"
+          type="password"
+          required
+          class="input"
+          placeholder="••••••••"
+          minlength="8"
         >
       </div>
 
-      <button type="submit" class="login-button">
-        Entrar
+      <button type="submit" class="register-button">
+        Criar Conta
       </button>
 
-      <div class="register-link">
-        Não tem conta? <a href="{{ route('register') }}">Cadastre-se</a>
+      <div class="login-link">
+        Já tem conta? <a href="{{ route('login') }}">Faça login</a>
       </div>
     </form>
   </div>
 
 </body>
 </html>
-
