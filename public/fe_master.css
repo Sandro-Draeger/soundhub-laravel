@@ -503,8 +503,9 @@ body {
     transition: background 0.2s ease;
 }
 
-.album-card:hover {
-    background: #242424;
+.album-card:hover .album-cover{
+    background: #303030;
+    transform: scale(1.08);
 }
 
 /* ===== Capa ===== */
@@ -515,6 +516,12 @@ body {
     object-fit: cover;
     border-radius: 6px;
     background: #333;
+    transition: transform 0.3s ease;
+}
+
+.album-cover-wrapper {
+    overflow: hidden;
+    border-radius: 6px;
 }
 
 /* ===== Info ===== */

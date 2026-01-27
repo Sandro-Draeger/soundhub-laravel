@@ -23,11 +23,13 @@
                     <div class="album-card">
 
                         @if(isset($item['artworkUrl100']))
+                        <div class="album-cover-wrapper">
                             <img
                                 src="{{ str_replace('100x100', '300x300', $item['artworkUrl100']) }}"
                                 alt="{{ $item['collectionName'] ?? $item['artistName'] }}"
                                 class="album-cover"
                             >
+                        </div>
                         @else
                             <div class="album-placeholder"></div>
                         @endif
