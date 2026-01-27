@@ -45,7 +45,7 @@ body {
 }
 
 .brand img {
-  display: block;       /* 🔑 isso resolve */
+  display: block;
   width: 180px;
   max-width: 100%;
   height: auto;
@@ -446,3 +446,106 @@ body {
 
 
 
+/* ===== Página ===== */
+.spotify-page {
+    background: rgba(255, 255, 255, 0);
+    min-height: 100vh;
+}
+
+/* Voltar */
+.back-link {
+    color: #1db954;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ===== Grid ===== */
+.album-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -12px;
+}
+
+/* 5 por linha */
+.album-col {
+    width: 20%;
+    padding: 12px;
+}
+
+/* 4 por linha */
+@media (max-width: 1200px) {
+    .album-col {
+        width: 25%;
+    }
+}
+
+/* 3 por linha */
+@media (max-width: 992px) {
+    .album-col {
+        width: 33.3333%;
+    }
+}
+
+/* 2 por linha */
+@media (max-width: 576px) {
+    .album-col {
+        width: 50%;
+    }
+}
+
+/* ===== Card ===== */
+.album-card {
+    background: #181818;
+    border-radius: 10px;
+    padding: 12px;
+    height: 100%;
+    margin-bottom: 10px;
+    transition: background 0.2s ease;
+}
+
+.album-card:hover {
+    background: #242424;
+}
+
+/* ===== Capa ===== */
+.album-cover,
+.album-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #333;
+}
+
+/* ===== Info ===== */
+.album-info {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.album-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-artist {
+    font-size: 13px;
+    color: #b3b3b3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.import-button {
+    display: inline-block;
+    font-size: 13px;
+    color: #b3b3b3;
+    transition: background-color 0.2s ease;
+    margin-bottom: 0;
+}

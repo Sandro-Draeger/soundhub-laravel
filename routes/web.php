@@ -26,7 +26,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // ========== DASHBOARD (Autenticado) ==========
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
-// ========== BANDAS (Públicas para visualizar, admin para gerenciar) ==========
+// ========== BANDAS  ==========
 Route::resource('bands', BandController::class);
 // Proteger rotas específicas de banda para admin
 Route::middleware('auth')->group(function () {
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('bands/{band}', [BandController::class, 'destroy'])->middleware('admin')->name('bands.destroy');
 });
 
-// ========== ÁLBUNS (Públicas para visualizar, admin para gerenciar) ==========
+// ========== ÁLBUNS ==========
 Route::resource('albums', AlbumController::class);
 // Proteger rotas específicas de álbum para admin
 Route::middleware('auth')->group(function () {
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('albums/{album}', [AlbumController::class, 'destroy'])->middleware('admin')->name('albums.destroy');
 });
 
-// ========== PLAYLISTS (Apenas usuários autenticados) ==========
+// ========== PLAYLISTS ==========
 Route::middleware('auth')->group(function () {
     Route::resource('playlists', PlaylistController::class);
     Route::post('playlists/{playlist}/add-music', [PlaylistController::class, 'addMusic'])->name('playlists.add-music');
