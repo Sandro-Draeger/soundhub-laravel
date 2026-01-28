@@ -15,6 +15,7 @@ class Playlist extends Model
         'user_id',
         'name',
         'description',
+        'photo'
     ];
 
     public function user()
@@ -24,7 +25,7 @@ class Playlist extends Model
 
     public function musics()
     {
-        return $this->belongsToMany(Song::class, 'playlist_music')
+        return $this->belongsToMany(Song::class, 'playlist_music', 'playlist_id', 'music_id')
             ->withPivot('order')
             ->orderBy('playlist_music.order');
     }

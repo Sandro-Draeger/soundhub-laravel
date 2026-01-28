@@ -15,7 +15,7 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        $playlists = auth()->user()->playlists ?? [];
+        $playlists = auth()->user()->playlists()->with('musics')->get() ?? [];
         return view('playlists.index', compact('playlists'));
     }
 
@@ -153,4 +153,6 @@ class PlaylistController extends Controller
 
         return back()->with('success', 'Música removida da playlist!');
     }
+
+
 }
