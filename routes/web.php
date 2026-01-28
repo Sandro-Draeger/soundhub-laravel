@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
 // ========== PLAYLISTS ==========
 Route::middleware('auth')->group(function () {
     Route::resource('playlists', PlaylistController::class);
+    Route::get('playlists', [PlaylistController::class, 'index'])->name('playlists.index');
     Route::post('playlists/{playlist}/add-music', [PlaylistController::class, 'addMusic'])->name('playlists.add-music');
     Route::post('playlists/{playlist}/remove-music', [PlaylistController::class, 'removeMusic'])->name('playlists.remove-music');
 });

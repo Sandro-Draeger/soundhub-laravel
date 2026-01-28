@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class PlaylistController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     /**
      * Lista todas as playlists do usuário
