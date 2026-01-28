@@ -3,11 +3,10 @@
 @section('content')
 <div class="container">
 
-    <h1>Álbuns</h1>
+    <h1>Albuns</h1>
 
     @if(auth()->check() && auth()->user()->role === 'admin')
-        <a href="{{ route('albums.create') }}" class="btn btn-primary">+ Adicionar Álbum</a>
-        <a href="{{ route('itunes.search') }}" class="btn btn-secondary">Buscar no iTunes</a>
+        <a href="{{ route('itunes.search') }}" class="btn btn-primary">+ Add Album</a>
     @endif
 
     @if($albums->count())
@@ -18,7 +17,7 @@
                         <img src="{{ asset('storage/' . $album->image) }}" alt="{{ $album->title }}" style="width: 100%; height: 200px; object-fit: cover;">
                     @else
                         <div style="width: 100%; height: 200px; background: #707070; display: flex; align-items: center; justify-content: center; color: #999;">
-                            Sem imagem
+                            without cover
                         </div>
                     @endif
                     <div style="padding: 15px;">
@@ -27,7 +26,7 @@
                             <p style="color: #666; margin: 0 0 10px 0;">{{ $album->band->name }}</p>
                         @endif
                         @if($album->songs->count())
-                            <h4>Músicas:</h4>
+                            <h4>Songs:</h4>
                             <ul style="list-style: none; padding: 0; margin: 0;">
                                 @foreach($album->songs as $song)
                                     <li style="margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center;">
@@ -41,13 +40,13 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <a href="{{ route('albums.show', $album) }}" style="display: inline-block; margin-top: 10px; color: #667eea; text-decoration: none;">Ver detalhes</a>
+                        <a href="{{ route('albums.show', $album) }}" style="display: inline-block; margin-top: 10px; color: #667eea; text-decoration: none;">View details</a>
                     </div>
                 </div>
             @endforeach
         </div>
     @else
-        <p>Não existem álbuns registados.</p>
+        <p>No albums registered.</p>
     @endif
 
 </div>

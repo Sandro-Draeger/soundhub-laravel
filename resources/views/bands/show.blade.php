@@ -4,7 +4,7 @@
 <div class="container" style="padding: 30px;">
 
     <div style="margin-bottom: 30px;">
-        <a href="{{ route('bands.index') }}" style="color: #667eea; text-decoration: none;">← Voltar às Bandas</a>
+        <a href="{{ route('bands.index') }}" style="color: #667eea; text-decoration: none;">← Back to Bands</a>
     </div>
 
     <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
@@ -13,14 +13,14 @@
                 <img src="{{ asset('storage/' . $band->photo) }}" alt="{{ $band->name }}" style="height: 200px; width: 200px; object-fit: cover; border-radius: 12px;">
             @else
                 <div style="height: 200px; width: 200px; background: #f0f0f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #999;">
-                    Sem foto
+                    Without Cover
                 </div>
             @endif
 
             <div>
                 <h1 style="margin: 0 0 20px 0;">{{ $band->name }}</h1>
                 <p style="color: #666; font-size: 16px; margin-bottom: 10px;">
-                    <strong>Total de Álbuns:</strong> {{ $band->albums->count() }}
+                    <strong>Total:</strong> {{ $band->albums->count() }}
                 </p>
 
                 @if(auth()->check() && auth()->user()->role === 'admin')
@@ -33,7 +33,7 @@
                             text-decoration: none;
                             font-weight: 600;
                             margin-right: 10px;
-                        ">Editar</a>
+                        ">Edit</a>
                         <form method="POST" action="{{ route('bands.destroy', $band) }}" style="display: inline;">
                             @csrf
                             @method('DELETE')
@@ -45,7 +45,7 @@
                                 border-radius: 8px;
                                 font-weight: 600;
                                 cursor: pointer;
-                            ">Apagar</button>
+                            ">Delete</button>
                         </form>
                     </div>
                 @endif
@@ -53,17 +53,17 @@
         </div>
     </div>
 
-    <h2 style="margin-bottom: 20px;">Álbuns</h2>
+    <h2 style="margin-bottom: 20px;">Albums</h2>
 
     @if($band->albums->count())
         <table style="width: 100%; border-collapse: collapse;">
             <thead>
                 <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Imagem</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Nome do Álbum</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Data de Lançamento</th>
+                    <th style="padding: 15px; text-align: left; font-weight: 600;">Image</th>
+                    <th style="padding: 15px; text-align: left; font-weight: 600;">Album Name</th>
+                    <th style="padding: 15px; text-align: left; font-weight: 600;">Release Date</th>
                     @if(auth()->check() && auth()->user()->role === 'admin')
-                        <th style="padding: 15px; text-align: center; font-weight: 600;">Ações</th>
+                        <th style="padding: 15px; text-align: center; font-weight: 600;">Actions</th>
                     @endif
                 </tr>
             </thead>
@@ -75,7 +75,7 @@
                                 <img src="{{ asset('storage/' . $album->image) }}" alt="{{ $album->title }}" style="height: 60px; width: 60px; object-fit: cover; border-radius: 6px;">
                             @else
                                 <div style="height: 60px; width: 60px; background: #f0f0f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px;">
-                                    Sem imagem
+                                    Without Image
                                 </div>
                             @endif
                         </td>
@@ -100,7 +100,7 @@
                                     font-size: 12px;
                                     font-weight: 600;
                                     margin-right: 5px;
-                                ">Editar</a>
+                                ">Edit</a>
                                 <form method="POST" action="{{ route('albums.destroy', $album) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
@@ -113,7 +113,7 @@
                                         font-size: 12px;
                                         font-weight: 600;
                                         cursor: pointer;
-                                    ">Apagar</button>
+                                    ">Delete</button>
                                 </form>
                             </td>
                         @endif
@@ -123,7 +123,7 @@
         </table>
     @else
         <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 20px; border-radius: 8px;">
-            Esta banda ainda não tem álbuns registados.
+            This band does not have any registered albums.
         </div>
     @endif
 

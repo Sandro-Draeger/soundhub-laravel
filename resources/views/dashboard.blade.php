@@ -4,8 +4,7 @@
 <div class="container" style="padding: 10px; max-width: 1200px;">
 
     <div style="background: rgb(61, 61, 61); padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
-        <h1 style="margin: 0 0 10px 0; color: white;">Meus Álbuns</h1>
-        <p style="color: #cccccc; font-size: 16px; margin: 0 0 20px 0;">Olá, {{ auth()->user()->name }}</p>
+        <h1 style="margin: 0 0 10px 0; color: white;">Welcome, {{ auth()->user()->name }}</h1>
 
         {{-- ÁREA DO ADMIN --}}
         @if(auth()->user()->role === 'admin')
@@ -21,19 +20,7 @@
                         cursor: pointer;
                         text-decoration: none;
                         display: inline-block;
-                    ">+ Adicionar Banda</a>
-
-                    <a href="{{ route('albums.create') }}" style="
-                        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-                        color: white;
-                        padding: 12px 25px;
-                        border: none;
-                        border-radius: 8px;
-                        font-weight: 600;
-                        cursor: pointer;
-                        text-decoration: none;
-                        display: inline-block;
-                    ">+ Adicionar Álbum</a>
+                    "><i class="bi bi-plus-lg"></i> Add Band</a>
 
                     <a href="{{ route('itunes.search') }}" style="
                         background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%);
@@ -45,7 +32,7 @@
                         cursor: pointer;
                         text-decoration: none;
                         display: inline-block;
-                    ">🔍 Buscar na iTunes</a>
+                    "><i class="bi bi-plus-lg"></i> Add Album</a>
                 </div>
             </div>
         @endif
@@ -71,7 +58,11 @@
                     <div class="album-card">
                         @if($album->image)
                             <div class="album-cover-wrapper">
-                                <img src="{{ asset('storage/' . $album->image) }}" alt="{{ $album->title }}" class="album-cover">
+                                <img src="{{ Storage::url($album->image) }}"
+                                     alt="{{ $album->title }}"
+                                     class="album-cover"
+                                     loading="lazy"
+                                     decoding="async">
                             </div>
                         @elseif($album->itunes_id)
                             <div class="album-cover-wrapper">
@@ -87,13 +78,12 @@
                             </div>
 
                             <div class="album-artist">
-                                {{ $album->band->name ?? 'Artista Desconhecido' }}
+                                {{ $album->band->name ?? 'Unknown Artist' }}
                             </div>
 
                             <div style="display: flex; gap: 5px; flex-direction: column;">
-                                <a href="{{ route('dashboard.album', $album->id) }}" class="import-button">
-                                    <i class="bi bi-music-note-list"></i> Ver Músicas
-                                </a>
+
+
 
                                 @if(auth()->user()->role === 'admin')
                                     <div style="display: flex; gap: 5px;">
@@ -107,8 +97,9 @@
                                             display: flex;
                                             align-items: center;
                                             gap: 3px;
+                                            margin: 0 5px 0 0;
                                         ">
-                                            <i class="bi bi-gear"></i> Gerenciar
+                                            <i class="bi bi-gear"></i> Manage
                                         </a>
 
                                         <form method="POST" action="{{ route('dashboard.album.destroy', $album->id) }}" style="display: inline;">
@@ -125,8 +116,8 @@
                                                 display: flex;
                                                 align-items: center;
                                                 gap: 3px;
-                                            " onclick="return confirm('Tem certeza que deseja remover este álbum e todas as suas músicas?')">
-                                                <i class="bi bi-trash"></i> Remover
+                                            " onclick="return confirm('Are you sure you want to delete this album? This action cannot be undone.')">
+                                                <i class="bi bi-trash"></i> Remove
                                             </button>
                                         </form>
                                     </div>
@@ -139,11 +130,11 @@
         </div>
     @else
         <div style="background: rgb(145, 145, 145); padding: 50px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: #333; margin: 0 0 20px 0;">Nenhum álbum encontrado</h3>
-            <p style="color: #666; margin: 0 0 30px 0;">Comece adicionando seu primeiro álbum à coleção.</p>
+            <h3 style="color: #333; margin: 0 0 20px 0;">No albums found</h3>
+            <p style="color: #666; margin: 0 0 30px 0;">Start by adding your first album to the collection.</p>
             @if(auth()->user()->role === 'admin')
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                    <a href="{{ route('albums.create') }}" style="
+                    <a href="{{ route('itunes.search') }}" style="
                         background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
                         color: white;
                         padding: 12px 25px;
@@ -153,19 +144,8 @@
                         cursor: pointer;
                         text-decoration: none;
                         display: inline-block;
-                    ">+ Adicionar Álbum</a>
+                    ">+ Add Album</a>
 
-                    <a href="{{ route('itunes.search') }}" style="
-                        background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%);
-                        color: white;
-                        padding: 12px 25px;
-                        border: none;
-                        border-radius: 8px;
-                        font-weight: 600;
-                        cursor: pointer;
-                        text-decoration: none;
-                        display: inline-block;
-                    ">🔍 Buscar na iTunes</a>
                 </div>
             @endif
         </div>

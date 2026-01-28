@@ -4,7 +4,7 @@
 <div class="container" style="padding: 10px; max-width: 1000px;">
 
     <div style="margin-bottom: 30px;">
-        <a href="{{ route('dashboard.album', $album->id) }}" style="color: #667eea; text-decoration: none;">← Voltar ao Álbum</a>
+        <a href="{{ route('dashboard', $album->id) }}" style="color: #667eea; text-decoration: none;">← Back to Dashboard</a>
     </div>
 
     <div style="background: rgb(61, 61, 61); padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
@@ -16,22 +16,22 @@
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music{{ substr($album->itunes_id, 0, 2) }}/{$album->itunes_id}/300x300.jpg" alt="{{ $album->title }}" style="width: 100%; border-radius: 8px;">
             @else
                 <div style="width: 100%; aspect-ratio: 1; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
-                    Sem imagem
+                     Without Cover
                 </div>
             @endif
 
             <div>
-                <h1 style="margin: 0 0 10px 0;">Gerenciar Músicas: <br><br>
+                <h1 style="margin: 0 0 10px 0;">Manage Songs: <br><br>
                     {{ $album->title }}</h1>
 
                 @if($album->band)
                     <p style="color: #ffffff; font-size: 16px; margin: 0 0 10px 0;">
-                        <strong>Artista:</strong> {{ $album->band->name }}
+                        <strong>Artist:</strong> {{ $album->band->name }}
                     </p>
                 @endif
 
                 <p style="color: #ffffff; font-size: 16px; margin: 0 0 20px 0;">
-                    <strong>Músicas atuais:</strong> {{ $album->songs->count() }}
+                    <strong>Songs:</strong> {{ $album->songs->count() }}
                 </p>
 
 
@@ -51,24 +51,22 @@
         </div>
     @endif
 
-    <h2 style="margin-bottom: 20px;">Músicas Atuais</h2>
+    <h2 style="margin-bottom: 20px;">Current Songs</h2>
 
     @if($album->songs->count() > 0)
         <div style="background: rgb(145, 145, 145); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 30px;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr style="background: #5f5f5f; border-bottom: 2px solid #181818;">
-                        <th style="padding: 15px; text-align: left; font-weight: 600;">Nº</th>
-                        <th style="padding: 15px; text-align: left; font-weight: 600;">Música</th>
-                        <th style="padding: 15px; text-align: center; font-weight: 600;">Duração</th>
+                        <th style="padding: 15px; text-align: left; font-weight: 600;">Song</th>
+                        <th style="padding: 15px; text-align: center; font-weight: 600;">Duration</th>
                         <th style="padding: 15px; text-align: center; font-weight: 600;">Preview</th>
-                        <th style="padding: 15px; text-align: center; font-weight: 600;">Ações</th>
+                        <th style="padding: 15px; text-align: center; font-weight: 600;"> </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($album->songs as $index => $song)
                         <tr style="border-bottom: 1px solid #131313;">
-                            <td style="padding: 15px;">{{ $index + 1 }}</td>
                             <td style="padding: 15px;">{{ $song->track_name }}</td>
                             <td style="padding: 15px; text-align: center;">
                                 @if($song->track_time)
@@ -81,10 +79,10 @@
                                 @if($song->preview_url)
                                     <audio controls style="height: 30px; max-width: 200px;">
                                         <source src="{{ $song->preview_url }}" type="audio/mpeg">
-                                        Seu navegador não suporta o elemento audio.
+                                        Your browser does not support the audio element.
                                     </audio>
                                 @else
-                                    <span style="color: #999;">Não disponível</span>
+                                    <span style="color: #999;">Not available</span>
                                 @endif
                             </td>
                             <td style="padding: 15px; text-align: center;">
@@ -99,7 +97,7 @@
                                         border-radius: 4px;
                                         cursor: pointer;
                                         font-size: 12px;
-                                    " onclick="return confirm('Tem certeza que deseja remover esta música?')">Delete</button>
+                                    " onclick="return confirm('Tem certeza que deseja remover esta música?')">Remove</button>
                                 </form>
                             </td>
                         </tr>
@@ -109,7 +107,7 @@
         </div>
     @else
         <div style="background: rgb(145, 145, 145); padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; margin-bottom: 30px;">
-            <p style="color: #333; margin: 0;">Este álbum ainda não tem músicas.</p>
+            <p style="color: #333; margin: 0;">This album does not have any songs.</p>
         </div>
     @endif
 

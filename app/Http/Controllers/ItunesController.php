@@ -152,9 +152,10 @@ class ItunesController extends Controller
         $albumData = $albumResponse->json()['results'][0] ?? null;
         $imageUrl = null;
 
-        // Se encontrou dados do álbum e tem imagem, baixa e salva
         if ($albumData && isset($albumData['artworkUrl100'])) {
+
             $imageUrl = $this->downloadAndSaveImage($albumData['artworkUrl100'], $request->input('album_name'));
+
         }
 
         $album = Album::create([
@@ -199,6 +200,8 @@ class ItunesController extends Controller
     private function downloadAndSaveImage($imageUrl, $albumName)
     {
         try {
+            $imageUrl = str_replace('100x100', '300x300', $imageUrl); // Pega uma imagem maior - A API retorna 100x100 por padrão mas existem tamanhos maiores;
+
             // Baixa a imagem
             $imageContent = Http::get($imageUrl)->body();
 

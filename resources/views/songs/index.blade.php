@@ -3,8 +3,8 @@
 @section('content')
 
 <form method="GET">
-    <input type="text" name="term" placeholder="Buscar álbum">
-    <button type="submit">Pesquisar</button>
+    <input type="text" name="term" placeholder="Search album">
+    <button type="submit">Search</button>
 </form>
 
 <hr>
@@ -17,7 +17,7 @@
             <p>{{ $album['artistName'] }}</p>
 
             <a href="/albums/{{ $album['collectionId'] }}">
-                Ver músicas
+                See Details
             </a>
         </div>
     @endforeach

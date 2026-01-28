@@ -4,7 +4,7 @@
 <div class="container" style="padding: 30px;">
 
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h1 style="margin: 0;">Bandas</h1>
+        <h1 style="margin: 0;">Bands</h1>
         @if(auth()->check() && auth()->user()->role === 'admin')
             <a href="{{ route('bands.create') }}" style="
                 background: #667eea;
@@ -13,9 +13,10 @@
                 border-radius: 8px;
                 text-decoration: none;
                 font-weight: 600;
-            ">+ Nova Banda</a>
+            ">+ New Band</a>
         @endif
     </div>
+
 
     @if(session('success'))
         <div style="background: #4caf50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
@@ -27,10 +28,10 @@
         <table style="width: 100%; border-collapse: collapse;">
             <thead>
                 <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Foto</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Nome da Banda</th>
-                    <th style="padding: 15px; text-align: center; font-weight: 600;">Número de Álbuns</th>
-                    <th style="padding: 15px; text-align: center; font-weight: 600;">Ações</th>
+                    <th style="padding: 15px; text-align: left; font-weight: 600;">Cover</th>
+                    <th style="padding: 15px; text-align: left; font-weight: 600;">Band Name</th>
+                    <th style="padding: 15px; text-align: center; font-weight: 600;">Number of Albums</th>
+                    <th style="padding: 15px; text-align: center; font-weight: 600;">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +42,7 @@
                                 <img src="{{ asset('storage/' . $band->photo) }}" alt="{{ $band->name }}" style="height: 80px; width: 80px; object-fit: cover; border-radius: 8px;">
                             @else
                                 <div style="height: 80px; width: 80px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
-                                    Sem foto
+                                    Without Cover
                                 </div>
                             @endif
                         </td>
@@ -61,7 +62,7 @@
                                 font-size: 12px;
                                 font-weight: 600;
                                 margin-right: 5px;
-                            ">Ver Álbuns</a>
+                            ">View Albums</a>
 
                             @if(auth()->check() && auth()->user()->role === 'admin')
                                 <a href="{{ route('bands.edit', $band) }}" style="
@@ -73,7 +74,7 @@
                                     font-size: 12px;
                                     font-weight: 600;
                                     margin-right: 5px;
-                                ">Editar</a>
+                                ">Edit</a>
 
                                 <form method="POST" action="{{ route('bands.destroy', $band) }}" style="display: inline;">
                                     @csrf
@@ -87,7 +88,7 @@
                                         font-size: 12px;
                                         font-weight: 600;
                                         cursor: pointer;
-                                    ">Apagar</button>
+                                    ">Delete</button>
                                 </form>
                             @endif
                         </td>
@@ -97,7 +98,7 @@
         </table>
     @else
         <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 20px; border-radius: 8px; text-align: center;">
-            Não existem bandas registadas.
+            There are no bands registered.
         </div>
     @endif
 

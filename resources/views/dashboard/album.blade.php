@@ -4,7 +4,7 @@
 <div class="container" style="padding: 10px; max-width: 1000px;">
 
     <div style="margin-bottom: 30px;">
-        <a href="{{ route('dashboard') }}" style="color: #667eea; text-decoration: none;">← Voltar ao Dashboard</a>
+        <a href="{{ route('dashboard') }}" style="color: #667eea; text-decoration: none;">← Back to Dashboard</a>
     </div>
 
     <div style="background: rgb(61, 61, 61); padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
@@ -16,7 +16,7 @@
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music{{ substr($album->itunes_id, 0, 2) }}/{$album->itunes_id}/300x300.jpg" alt="{{ $album->title }}" style="width: 100%; border-radius: 8px;">
             @else
                 <div style="width: 100%; aspect-ratio: 1; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
-                    Sem imagem
+                   Without Cover
                 </div>
             @endif
 
@@ -25,40 +25,38 @@
 
                 @if($album->band)
                     <p style="color: #ffffff; font-size: 16px; margin: 0 0 10px 0;">
-                        <strong>Artista:</strong> {{ $album->band->name }}
+                        <strong>Artist:</strong> {{ $album->band->name }}
                     </p>
                 @endif
 
                 @if($album->release_date)
                     <p style="color: #ffffff; font-size: 16px; margin: 0 0 10px 0;">
-                        <strong>Data de Lançamento:</strong> {{ \Carbon\Carbon::parse($album->release_date)->format('d/m/Y') }}
+                        <strong>Release Date:</strong> {{ \Carbon\Carbon::parse($album->release_date)->format('d/m/Y') }}
                     </p>
                 @endif
 
                 <p style="color: #ffffff; font-size: 16px; margin: 0 0 20px 0;">
-                    <strong>Músicas:</strong> {{ $album->songs->count() }}
+                    <strong>Songs:</strong> {{ $album->songs->count() }}
                 </p>
             </div>
         </div>
     </div>
 
     @if($album->songs->count() > 0)
-        <h2 style="margin-bottom: 20px;">Músicas do Álbum</h2>
+        <h2 style="margin-bottom: 20px;">Songs of the Album</h2>
 
         <div style="background: rgb(145, 145, 145); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr style="background: #5f5f5f; border-bottom: 2px solid #181818;">
-                        <th style="padding: 15px; text-align: left; font-weight: 600;">Nº</th>
-                        <th style="padding: 15px; text-align: left; font-weight: 600;">Música</th>
-                        <th style="padding: 15px; text-align: center; font-weight: 600;">Duração</th>
+                        <th style="padding: 15px; text-align: left; font-weight: 600;">Song</th>
+                        <th style="padding: 15px; text-align: center; font-weight: 600;">Duration</th>
                         <th style="padding: 15px; text-align: center; font-weight: 600;">Preview</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($album->songs as $index => $song)
                         <tr style="border-bottom: 1px solid #131313;">
-                            <td style="padding: 15px;">{{ $index + 1 }}</td>
                             <td style="padding: 15px;">{{ $song->track_name }}</td>
                             <td style="padding: 15px; text-align: center;">
                                 @if($song->track_time)
@@ -71,7 +69,7 @@
                                 @if($song->preview_url)
                                     <audio controls style="height: 30px; max-width: 200px; border-radius: 8px;">
                                         <source src="{{ $song->preview_url }}" type="audio/mpeg">
-                                        Seu navegador não suporta o elemento audio.
+                                        Your browser does not support the audio element.
                                     </audio>
                                 @else
                                     <span style="color: #ffffff;"><i class="bi bi-ban"></i></span>
@@ -84,7 +82,7 @@
         </div>
     @else
         <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
-            <p style="color: #666; margin: 0;">Este álbum ainda não tem músicas cadastradas.</p>
+            <p style="color: #666; margin: 0;">This album does not have any songs registered.</p>
         </div>
     @endif
 
