@@ -39,16 +39,16 @@
       </a>
 
       <a href="{{ route('bands.index') }}" class="{{ request()->routeIs('bands.*') ? 'active' : '' }}">
-        <i class="bi bi-music-note-beamed"></i> Artistas
+        <i class="bi bi-music-note-beamed"></i> Artists
       </a>
 
       <a href="{{ route('albums.index') }}" class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
-        <i class="bi bi-disc"></i> Álbuns
+        <i class="bi bi-disc"></i> Albums
       </a>
 
       @auth
         <a href="{{ route('playlists.index') }}" class="{{ request()->routeIs('playlists.*') ? 'active' : '' }}">
-          <i class="bi bi-list-ul"></i> Minhas Playlists
+          <i class="bi bi-list-ul"></i> MY Playlists
         </a>
 
         <a href="{{ route('itunes.search') }}" class="{{ request()->routeIs('itunes.*') ? 'active' : '' }}">
@@ -63,11 +63,11 @@
           </div>
 
           <a href="{{ route('bands.create') }}" class="{{ request()->routeIs('bands.create') ? 'active' : '' }}">
-            <i class="bi bi-plus-circle"></i> Adicionar Artista
+            <i class="bi bi-plus-circle"></i> Add Artist
           </a>
 
           <a href="{{ route('albums.create') }}" class="{{ request()->routeIs('albums.create') ? 'active' : '' }}">
-            <i class="bi bi-plus-circle"></i> Adicionar Álbum
+            <i class="bi bi-plus-circle"></i> Add Album
           </a>
 
           <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
@@ -94,7 +94,7 @@
             transition: background 0.2s;
             font-size: 14px;
           " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">
-            <i class="bi bi-box-arrow-right"></i> Sair
+            <i class="bi bi-box-arrow-right"></i> Logout
           </button>
         </form>
       @else
@@ -105,14 +105,14 @@
         </a>
 
         <a href="{{ route('register') }}" class="{{ request()->routeIs('register') ? 'active' : '' }}">
-          <i class="bi bi-person-plus"></i> Registrar
+          <i class="bi bi-person-plus"></i> Register
         </a>
       @endauth
     </nav>
 
     <div class="now-playing">
       @auth
-        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">Usuário</p>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">User</p>
         <p style="margin: 0; font-weight: 600;">{{ auth()->user()->name }}</p>
         @if(auth()->user()->role === 'admin')
           <span style="display: inline-block; background: #667eea; color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-top: 5px;">ADMIN</span>

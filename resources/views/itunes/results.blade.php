@@ -5,15 +5,15 @@
     <div class="container">
 
         <a href="{{ route('itunes.search') }}" class="back-link mb-3 d-inline-block">
-            ← Voltar à Busca
+            ← Back to Search
         </a>
 
         <h4 class="mb-1 text-white">
-            Resultados para "{{ $term }}"
+            Results for "{{ $term }}"
         </h4>
 
         <p class="text-muted mb-4">
-            {{ ucfirst($type) }} • {{ count($results) }} resultado(s)
+            {{ ucfirst($type) }} • {{ count($results) }} result(s)
         </p>
 
         @if(count($results) > 0)
@@ -54,7 +54,7 @@
             @endforeach
         </div>
         @else
-            <p class="text-muted">Nenhum resultado encontrado.</p>
+            <p class="text-muted">No results found.</p>
         @endif
 
     </div>

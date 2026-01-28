@@ -3,7 +3,7 @@
 @section('content')
 <div class="container" style="padding: 30px; max-width: 900px;">
 
-    <h1 style="margin-bottom: 30px;">Buscar Artistas</h1>
+    <h1 style="margin-bottom: 30px;">Search Artists</h1>
 
     @if(session('error'))
         <div style="background: #f44336; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
@@ -21,7 +21,7 @@
         <form method="GET" action="{{ route('itunes.results') }}">
             <div style="display: grid; gap: 20px;">
                 <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">O que deseja pesquisar?</label>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">What do you want to search?</label>
                     <input
                         type="text"
                         name="term"
@@ -32,9 +32,9 @@
                 </div>
 
                 <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Tipo de Busca</label>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Search Type</label>
                     <select name="type" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
-                        <option value="album">Álbum</option>
+                        <option value="album">Album</option>
                     </select>
                 </div>
 
@@ -47,7 +47,7 @@
                     font-weight: 600;
                     cursor: pointer;
                     font-size: 14px;
-                ">Pesquisar</button>
+                ">Search</button>
             </div>
         </form>
     </div>

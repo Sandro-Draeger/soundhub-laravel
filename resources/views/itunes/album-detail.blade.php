@@ -4,7 +4,7 @@
 <div class="container" style="padding: 10px; max-width: 1000px;">
 
     <div style="margin-bottom: 30px;">
-        <a href="{{ route('itunes.search') }}" style="color: #667eea; text-decoration: none;">← Voltar à Busca</a>
+        <a href="{{ route('itunes.search') }}" style="color: #667eea; text-decoration: none;">← Back to Search</a>
     </div>
 
     @if(session('error'))
@@ -26,28 +26,28 @@
                 <img src="{{ str_replace('100x100', '300x300', $album['artworkUrl100']) }}" alt="{{ $album['collectionName'] ?? $album['artistName'] }}" style="width: 100%; border-radius: 8px;">
             @else
                 <div style="width: 100%; aspect-ratio: 1; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
-                    Sem imagem
+                    Without Image
                 </div>
             @endif
 
             <div>
-                <h1 style="margin: 0 0 10px 0;">{{ $album['collectionName'] ?? $album['artistName'] ?? 'Sem nome' }}</h1>
+                <h1 style="margin: 0 0 10px 0;">{{ $album['collectionName'] ?? $album['artistName'] ?? 'Without Name' }}</h1>
 
                 @if(isset($album['artistName']))
                     <p style="color: #666; font-size: 16px; margin: 0 0 10px 0;">
-                        <strong>Artista:</strong> {{ $album['artistName'] }}
+                        <strong>Artist:</strong> {{ $album['artistName'] }}
                     </p>
                 @endif
 
                 @if(isset($album['releaseDate']))
                     <p style="color: #666; font-size: 16px; margin: 0 0 10px 0;">
-                        <strong>Data de Lançamento:</strong> {{ \Carbon\Carbon::parse($album['releaseDate'])->format('d/m/Y') }}
+                        <strong>Release Date:</strong> {{ \Carbon\Carbon::parse($album['releaseDate'])->format('d/m/Y') }}
                     </p>
                 @endif
 
                 @if(isset($album['primaryGenreName']))
                     <p style="color: #666; font-size: 16px; margin: 0 0 20px 0;">
-                        <strong>Gênero:</strong> {{ $album['primaryGenreName'] }}
+                        <strong>Genre:</strong> {{ $album['primaryGenreName'] }}
                     </p>
                 @endif
 
@@ -68,7 +68,7 @@
                                 font-weight: 600;
                                 cursor: pointer;
                                 width: 100%;
-                            ">✓ Importar Álbum</button>
+                            ">✓ Import Album</button>
                         </form>
                     </div>
                 @endif
@@ -77,14 +77,14 @@
     </div>
 
     @if(count($songs) > 0)
-        <h2 style="margin-bottom: 20px;">Músicas do Álbum</h2>
+        <h2 style="margin-bottom: 20px;">Songs of the Album</h2>
 
         <table style="width: 100%; border-collapse: collapse;">
             <thead>
                 <tr style="background: #5f5f5f; border-bottom: 2px solid #181818;">
                     <th style="padding: 15px; text-align: left; font-weight: 600;">Nº</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Música</th>
-                    <th style="padding: 15px; text-align: center; font-weight: 600;">Duração</th>
+                    <th style="padding: 15px; text-align: left; font-weight: 600;">Song</th>
+                    <th style="padding: 15px; text-align: center; font-weight: 600;">Duration</th>
                 </tr>
             </thead>
             <tbody>
