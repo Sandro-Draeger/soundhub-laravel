@@ -1,83 +1,271 @@
 /*==================================Search page================================== */
 /* PAGE */
 .search-page {
-  max-width: 700px;
-  margin-left: 240px;
-  padding: 40px;
-  color: #fff;
+    max-width: 700px;
+    margin-left: 240px;
+    padding: 40px;
+    color: #fff;
 }
 
 /* TITLE */
 .page-title {
-  margin-bottom: 30px;
-  font-size: 32px;
+    margin-bottom: 30px;
+    font-size: 32px;
 }
 
 /* CARD */
 .search-card {
-  background: #181818;
-  border-radius: 14px;
-  padding: 30px;
+    background: #181818;
+    border-radius: 14px;
+    padding: 30px;
 }
 
 /* ALERTS */
 .alert {
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
-.alert.success { background: #1db954; color: #000; }
-.alert.error { background: #e91429; }
+.alert.success {
+    background: #1db954;
+    color: #000;
+}
+.alert.error {
+    background: #e91429;
+}
 
 /* FORM */
 .search-form {
-  display: grid;
-  gap: 20px;
+    display: grid;
+    gap: 20px;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #b3b3b3;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #b3b3b3;
 }
 
 /* INPUTS */
 .search-form input,
 .search-form select {
-  width: 100%;
-  padding: 14px;
-  font-size: 14px;
-  border-radius: 8px;
-  background: #121212;
-  border: 1px solid #333;
-  color: #fff;
+    width: 100%;
+    padding: 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    background: #121212;
+    border: 1px solid #333;
+    color: #fff;
 }
 
 .search-form input::placeholder {
-  color: #666;
+    color: #666;
 }
 
 .search-form input:focus,
 .search-form select:focus {
-  border-color: #6e67d1;
-  outline: none;
+    border-color: #6e67d1;
+    outline: none;
 }
 
 /* BUTTON */
 .btn-primary {
-  align-self: flex-start;
-  background: #6e67d1;
-  color: #fff;
-  padding: 12px 30px;
-  border-radius: 30px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
+    align-self: flex-start;
+    background: #6e67d1;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
-  background: #736dcf;
+    background: #736dcf;
 }
 
+/*==================================Album Detail page================================== */
+/* ========== PAGE ========== */
+.itunes-album-page {
+    width: 100%;
+    max-width: 1400px;
+    margin-left: 40px;
+    padding: 30px;
+    color: #fff;
+}
+
+/* ========== BACK LINK ========== */
+.back-link {
+    color: #b3b3b3;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* ========== ALERTS ========== */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert.success {
+    background: #1db954;
+    color: #000;
+}
+
+.alert.error {
+    background: #e91429;
+}
+
+/* ========== ALBUM HEADER CARD ========== */
+.itunes-album-card {
+    background: linear-gradient(180deg, #2a2a2a, #121212);
+    border-radius: 14px;
+    padding: 50px;
+    margin-bottom: 40px;
+}
+
+/* ========== GRID ========== */
+.itunes-album-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+/* ========== COVER ========== */
+.itunes-album-cover img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 10px;
+}
+
+.cover-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #333;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 14px;
+}
+
+/* ========== INFO ========== */
+.itunes-album-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+/* ========== TEXT HIERARCHY ========== */
+.album-title {
+    font-size: clamp(42px, 4.5vw, 64px) !important;
+    font-weight: 800 !important;
+    line-height: 1.05;
+}
+
+.album-artist {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.album-meta {
+    margin: 0;
+    font-size: 15px;
+    color: #b3b3b3;
+}
+
+/* ========== IMPORT BUTTON ========== */
+.import-form {
+    margin-top: 16px;
+}
+
+.btn-import {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    background: #6e67d1 ;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-import:hover {
+    background: #807ad3 ;
+}
+
+/* ========== SECTION TITLE ========== */
+.section-title {
+    margin-bottom: 15px;
+}
+
+/* ========== SONGS TABLE ========== */
+.songs-table-wrapper {
+    background: #181818;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.songs-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.songs-table thead {
+    background: #282828;
+}
+
+.songs-table th,
+.songs-table td {
+    padding: 14px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.songs-table th:nth-child(3),
+.songs-table td:nth-child(3),
+.songs-table th:nth-child(4),
+.songs-table td:nth-child(4) {
+    text-align: center;
+}
+
+.songs-table tr {
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.songs-table tbody tr:hover {
+    background: #2a2a2a;
+}
+
+/* ========== AUDIO (Spotify-style) ========== */
+.audio-preview audio,
+.songs-table audio {
+    height: 30px;
+    max-width: 180px;
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: #1e1e1e;
+}
+
+audio::-webkit-media-controls-play-button {
+    filter: brightness(1.15);
+}
+
+/* ========== MUTED TEXT ========== */
+.muted {
+    color: #777;
+    font-size: 14px;
+}

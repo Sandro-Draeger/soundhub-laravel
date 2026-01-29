@@ -1,108 +1,122 @@
 @extends('fe_master')
 
-@section('content')
-<div class="container" style="padding: 10px; max-width: 1000px;">
+<link rel="stylesheet" href="{{ asset('css/itunes.css') }}">
 
-    <div style="margin-bottom: 30px;">
-        <a href="{{ route('itunes.search') }}" style="color: #667eea; text-decoration: none;">← Back to Search</a>
-    </div>
+@section('content')
+<div class="itunes-album-page">
+
+    <a href="{{ route('itunes.search') }}" class="back-link">
+        ← Back to Search
+    </a>
 
     @if(session('error'))
-        <div style="background: #f44336; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            {{ session('error') }}
-        </div>
+        <div class="alert error">{{ session('error') }}</div>
     @endif
 
     @if(session('success'))
-        <div style="background: #4caf50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            {{ session('success') }}
-        </div>
+        <div class="alert success">{{ session('success') }}</div>
     @endif
 
-    <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
-        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 30px; align-items: start;">
+    {{-- ALBUM CARD --}}
+    <div class="itunes-album-card">
 
-            @if(isset($album['artworkUrl100']))
-                <img src="{{ str_replace('100x100', '300x300', $album['artworkUrl100']) }}" alt="{{ $album['collectionName'] ?? $album['artistName'] }}" style="width: 100%; border-radius: 8px;">
-            @else
-                <div style="width: 100%; aspect-ratio: 1; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999;">
-                    Without Image
-                </div>
-            @endif
+        <div class="itunes-album-grid">
 
-            <div>
-                <h1 style="margin: 0 0 10px 0;">{{ $album['collectionName'] ?? $album['artistName'] ?? 'Without Name' }}</h1>
+            {{-- COVER --}}
+            <div class="itunes-album-cover">
+                @if(isset($album['artworkUrl100']))
+                    <img src="{{ str_replace('100x100', '300x300', $album['artworkUrl100']) }}"
+                         alt="{{ $album['collectionName'] ?? $album['artistName'] }}">
+                @else
+                    <div class="cover-placeholder">Without Image</div>
+                @endif
+            </div>
+
+            {{-- INFO --}}
+            <div class="itunes-album-info">
+                <h1 class="album-title">
+                    {{ $album['collectionName'] ?? $album['artistName'] ?? 'Without Name' }}
+                </h1>
 
                 @if(isset($album['artistName']))
-                    <p style="color: #666; font-size: 16px; margin: 0 0 10px 0;">
+                    <p class="album-artist">
                         <strong>Artist:</strong> {{ $album['artistName'] }}
                     </p>
                 @endif
 
                 @if(isset($album['releaseDate']))
-                    <p style="color: #666; font-size: 16px; margin: 0 0 10px 0;">
-                        <strong>Release Date:</strong> {{ \Carbon\Carbon::parse($album['releaseDate'])->format('d/m/Y') }}
+                    <p class="album-meta">
+                        <strong>Release:</strong>
+                        {{ \Carbon\Carbon::parse($album['releaseDate'])->format('d/m/Y') }}
                     </p>
                 @endif
 
                 @if(isset($album['primaryGenreName']))
-                    <p style="color: #666; font-size: 16px; margin: 0 0 20px 0;">
+                    <p class="album-meta">
                         <strong>Genre:</strong> {{ $album['primaryGenreName'] }}
                     </p>
                 @endif
 
                 @if(auth()->check() && auth()->user()->role === 'admin')
-                    <div style="display: grid; gap: 10px;">
-                        <form method="POST" action="{{ route('itunes.import-album') }}" style="display: inline;">
-                            @csrf
-                            <input type="hidden" name="artist_name" value="{{ $album['artistName'] ?? '' }}">
-                            <input type="hidden" name="album_name" value="{{ $album['collectionName'] ?? '' }}">
-                            <input type="hidden" name="release_date" value="{{ $album['releaseDate'] ?? '' }}">
-                            <input type="hidden" name="itunes_id" value="{{ $collectionId }}">
-                            <button type="submit" style="
-                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                                color: white;
-                                padding: 12px 25px;
-                                border: none;
-                                border-radius: 8px;
-                                font-weight: 600;
-                                cursor: pointer;
-                                width: 100%;
-                            ">✓ Import Album</button>
-                        </form>
-                    </div>
+                    <form method="POST"
+                          action="{{ route('itunes.import-album') }}"
+                          class="import-form">
+                        @csrf
+                        <input type="hidden" name="artist_name" value="{{ $album['artistName'] ?? '' }}">
+                        <input type="hidden" name="album_name" value="{{ $album['collectionName'] ?? '' }}">
+                        <input type="hidden" name="release_date" value="{{ $album['releaseDate'] ?? '' }}">
+                        <input type="hidden" name="itunes_id" value="{{ $collectionId }}">
+
+                        <button type="submit" class="btn-import">
+                            ✓ Import Album
+                        </button>
+                    </form>
                 @endif
             </div>
         </div>
     </div>
 
+    {{-- SONGS --}}
     @if(count($songs) > 0)
-        <h2 style="margin-bottom: 20px;">Songs of the Album</h2>
+        <h2 class="section-title">Songs of the Album</h2>
 
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr style="background: #5f5f5f; border-bottom: 2px solid #181818;">
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Nº</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Song</th>
-                    <th style="padding: 15px; text-align: center; font-weight: 600;">Duration</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($songs as $index => $song)
-                    <tr style="border-bottom: 1px solid #131313;">
-                        <td style="padding: 15px;">{{ $index + 1 }}</td>
-                        <td style="padding: 15px;">{{ $song['trackName'] ?? 'Sem nome' }}</td>
-                        <td style="padding: 15px; text-align: center;">
-                            @if(isset($song['trackTimeMillis']))
-                                {{ gmdate('i:s', $song['trackTimeMillis'] / 1000) }}
-                            @else
-
-                            @endif
-                        </td>
+        <div class="songs-table-wrapper">
+            <table class="songs-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Song</th>
+                        <th>Duration</th>
+                        <th>Preview</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($songs as $index => $song)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $song['trackName'] ?? 'Without name' }}</td>
+                            <td>
+                                {{ isset($song['trackTimeMillis'])
+                                    ? gmdate('i:s', $song['trackTimeMillis'] / 1000)
+                                    : '--'
+                                }}
+                            </td>
+                            <td>
+    @if(isset($song['previewUrl']))
+        <div class="audio-preview">
+            <audio controls>
+                <source src="{{ $song['previewUrl'] }}">
+            </audio>
+        </div>
+    @else
+        <span class="muted">Not available</span>
+    @endif
+</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
 
 </div>

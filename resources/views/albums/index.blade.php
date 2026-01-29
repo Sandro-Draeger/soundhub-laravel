@@ -1,52 +1,57 @@
 @extends('fe_master')
 
+<link rel="stylesheet" href="{{ asset('css/albums.css') }}">
+
 @section('content')
-<div class="container">
+<div class="albums-page">
 
-    <h1>Albuns</h1>
+    <div class="albums-header">
+        <h1 class="page-title">Albums</h1>
 
-    @if(auth()->check() && auth()->user()->role === 'admin')
-        <a href="{{ route('itunes.search') }}" class="btn btn-primary">+ Add Album</a>
-    @endif
+        @if(auth()->check() && auth()->user()->role === 'admin')
+            <a href="{{ route('itunes.search') }}" class="btn-primary">
+                + Add Album
+            </a>
+        @endif
+    </div>
 
     @if($albums->count())
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+        <div class="albums-grid">
+
             @foreach($albums as $album)
-                <div style="background: rgb(59, 59, 59); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">
-                    @if($album->image)
-                        <img src="{{ asset('storage/' . $album->image) }}" alt="{{ $album->title }}" style="width: 100%; height: 200px; object-fit: cover;">
-                    @else
-                        <div style="width: 100%; height: 200px; background: #707070; display: flex; align-items: center; justify-content: center; color: #999;">
-                            without cover
-                        </div>
-                    @endif
-                    <div style="padding: 15px;">
-                        <h3 style="margin: 0 0 5px 0;">{{ $album->title }}</h3>
-                        @if($album->band)
-                            <p style="color: #666; margin: 0 0 10px 0;">{{ $album->band->name }}</p>
+                <div class="album-card">
+
+                    {{-- COVER --}}
+                    <div class="album-card-cover">
+                        @if($album->image)
+                            <img src="{{ asset('storage/' . $album->image) }}" alt="{{ $album->title }}">
+                        @else
+                            <div class="cover-placeholder">Without cover</div>
                         @endif
-                        @if($album->songs->count())
-                            <h4>Songs:</h4>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                @foreach($album->songs as $song)
-                                    <li style="margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center;">
-                                        <span>{{ $song->track_name }}</span>
-                                        @if($song->preview_url)
-                                            <audio controls style="height: 30px;">
-                                                <source src="{{ $song->preview_url }}" type="audio/mpeg">
-                                            </audio>
-                                        @endif
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                        <a href="{{ route('albums.show', $album) }}" style="display: inline-block; margin-top: 10px; color: #667eea; text-decoration: none;">View details</a>
+
+                        {{-- PLAY OVERLAY (ÚNICO LINK) --}}
+                        <a href="{{ route('albums.show', $album) }}" class="play-overlay">
+                            <i class="bi bi-play-fill"></i>
+                        </a>
                     </div>
+
+                    {{-- INFO --}}
+                    <div class="album-card-info">
+                        <h3 class="album-card-title">{{ $album->title }}</h3>
+
+                        @if($album->band)
+                            <p class="album-card-artist">{{ $album->band->name }}</p>
+                        @endif
+                    </div>
+
                 </div>
             @endforeach
+
         </div>
     @else
-        <p>No albums registered.</p>
+        <div class="empty-state">
+            No albums registered.
+        </div>
     @endif
 
 </div>
