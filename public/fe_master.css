@@ -493,20 +493,7 @@ body {
     }
 }
 
-/* ===== Card ===== */
-.album-card {
-    background: #181818;
-    border-radius: 10px;
-    padding: 12px;
-    height: 100%;
-    margin-bottom: 10px;
-    transition: background 0.2s ease;
-}
 
-.album-card:hover .album-cover{
-    background: #303030;
-    transform: scale(1.08);
-}
 
 /* ===== Capa ===== */
 .album-cover,

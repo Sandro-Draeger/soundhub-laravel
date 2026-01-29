@@ -291,7 +291,7 @@ body {
 /* ARTIST */
 .album-artist {
     margin: 0;
-    font-size: 20px;
+    font-size: 30px !important;
     font-weight: 600;
     color: #ffffff;
 }
@@ -377,7 +377,9 @@ audio {
     font-weight: 600;
     font-size: 13px;
 
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
 }
 
 /* HOVER */
@@ -407,150 +409,150 @@ audio {
 /*=========================================ALBUNS Page=========================================*/
 /* ========== PAGE ========== */
 .album-page {
-  width: 100%;
-  max-width: 1400px;
-  margin-left: 40px;
-  padding: 30px;
-  color: #fff;
+    width: 100%;
+    max-width: 1400px;
+    margin-left: 40px;
+    padding: 30px;
+    color: #fff;
 }
 
 /* ========== BACK LINK ========== */
 .back-link {
-  color: #b3b3b3;
-  text-decoration: none;
-  display: inline-block;
-  margin-bottom: 20px;
-  font-size: 14px;
+    color: #b3b3b3;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
 /* ========== HEADER ========== */
 .album-header {
-  background: linear-gradient(180deg, #2a2a2a, #121212);
-  border-radius: 14px;
-  padding: 50px;
-  margin-bottom: 40px;
+    background: linear-gradient(180deg, #2a2a2a, #121212);
+    border-radius: 14px;
+    padding: 50px;
+    margin-bottom: 40px;
 }
 
 .album-header-grid {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 40px;
-  align-items: center;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    align-items: center;
 }
 
 /* ========== COVER ========== */
 .album-cover img {
-  width: 100%;
-  max-width: 280px;
-  border-radius: 10px;
+    width: 100%;
+    max-width: 280px;
+    border-radius: 10px;
 }
 
 .cover-placeholder {
-  aspect-ratio: 1;
-  background: #333;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #777;
-  font-size: 14px;
+    aspect-ratio: 1;
+    background: #333;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 14px;
 }
 
 /* ========== INFO ========== */
 .album-header-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
 }
 
 /* ========== TEXT ========== */
 .album-title {
-  font-size: clamp(64px, 7vw, 110px);
-  font-weight: 800;
-  line-height: 1.05;
-  margin: 0 0 10px;
+    font-size: clamp(64px, 7vw, 110px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 10px;
 }
 
 .album-artist {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+    margin: 0;
+    font-size: 20px !important;
+    font-weight: 600;
 }
 
 .album-meta {
-  margin: 0;
-  font-size: 15px;
-  color: #b3b3b3;
+    margin: 0;
+    font-size: 15px;
+    color: #b3b3b3;
 }
 
 /* ========== SECTION TITLE ========== */
 .section-title {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 /* ========== TABLE ========== */
 .songs-table-wrapper {
-  background: #181818;
-  border-radius: 12px;
-  overflow: hidden;
+    background: #181818;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .songs-table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .songs-table thead {
-  background: #282828;
+    background: #282828;
 }
 
 .songs-table th,
 .songs-table td {
-  padding: 14px;
-  text-align: left;
-  vertical-align: middle;
+    padding: 14px;
+    text-align: left;
+    vertical-align: middle;
 }
 
 .songs-table th:nth-child(2),
 .songs-table td:nth-child(2),
 .songs-table th:nth-child(3),
 .songs-table td:nth-child(3) {
-  text-align: center;
+    text-align: center;
 }
 
 .songs-table tr {
-  border-bottom: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
 }
 
 .songs-table tbody tr:hover {
-  background: #2a2a2a;
+    background: #2a2a2a;
 }
 
 /* ========== AUDIO ========== */
 .audio-preview audio {
-  height: 30px;
-  max-width: 180px;
+    height: 30px;
+    max-width: 180px;
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: #1e1e1e;
+    background-color: #1e1e1e;
 }
 
 audio::-webkit-media-controls-play-button {
-  filter: brightness(1.15);
+    filter: brightness(1.15);
 }
 
 /* ========== MISC ========== */
 .muted {
-  color: #777;
+    color: #777;
 }
 
 .empty-state {
-  background: #181818;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  color: #b3b3b3;
+    background: #181818;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    color: #b3b3b3;
 }
