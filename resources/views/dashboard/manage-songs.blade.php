@@ -88,7 +88,7 @@
                                 <form method="POST" action="{{ route('dashboard.album.song.destroy', ['albumId' => $album->id, 'songId' => $song->id]) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn-danger">Remove</button>
+                                    <button class="btn-danger"><i class="bi bi-trash3"></i></button>
                                 </form>
                             </td>
                         </tr>

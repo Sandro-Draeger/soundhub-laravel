@@ -1,0 +1,83 @@
+/*==================================Search page================================== */
+/* PAGE */
+.search-page {
+  max-width: 700px;
+  margin-left: 240px;
+  padding: 40px;
+  color: #fff;
+}
+
+/* TITLE */
+.page-title {
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+/* CARD */
+.search-card {
+  background: #181818;
+  border-radius: 14px;
+  padding: 30px;
+}
+
+/* ALERTS */
+.alert {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.alert.success { background: #1db954; color: #000; }
+.alert.error { background: #e91429; }
+
+/* FORM */
+.search-form {
+  display: grid;
+  gap: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+/* INPUTS */
+.search-form input,
+.search-form select {
+  width: 100%;
+  padding: 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  background: #121212;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+.search-form input::placeholder {
+  color: #666;
+}
+
+.search-form input:focus,
+.search-form select:focus {
+  border-color: #6e67d1;
+  outline: none;
+}
+
+/* BUTTON */
+.btn-primary {
+  align-self: flex-start;
+  background: #6e67d1;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #736dcf;
+}
+
