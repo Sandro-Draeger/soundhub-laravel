@@ -40,7 +40,7 @@ class DashboardController extends Controller
         // Remove o álbum
         $album->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Álbum removido com sucesso!');
+        return redirect()->route('dashboard')->with('success', 'Album removed successfully!');
     }
 
     public function manageSongs($id)
@@ -71,7 +71,7 @@ class DashboardController extends Controller
 
         $song->delete();
 
-        return redirect()->route('dashboard.album.manage-songs', $albumId)->with('success', 'Música removida com sucesso!');
+        return redirect()->route('dashboard.album.manage-songs', $albumId)->with('success', 'Song removed successfully!');
     }
 
 }

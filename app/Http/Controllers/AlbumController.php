@@ -36,7 +36,7 @@ class AlbumController extends Controller
 
         Album::create($data);
 
-        return redirect()->route('albums.index')->with('success', 'Álbum criado com sucesso!');
+        return redirect()->route('albums.index')->with('success', 'Album created successfully!');
     }
 
     public function show(Album $album)
@@ -65,13 +65,13 @@ class AlbumController extends Controller
 
         $album->update($data);
 
-        return redirect()->route('albums.index')->with('success', 'Álbum atualizado com sucesso!');
+        return redirect()->route('albums.index')->with('success', 'Album updated successfully!');
     }
 
     public function destroy(Album $album)
     {
         $album->delete();
-        return redirect()->route('albums.index')->with('success', 'Álbum removido com sucesso!');
+        return redirect()->route('albums.index')->with('success', 'Album removed successfully!');
     }
 
     public function showFromItunes($collectionId)

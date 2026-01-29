@@ -42,7 +42,7 @@ class PlaylistController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist criada com sucesso!');
+        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist created successfully!');
     }
 
     /**
@@ -92,7 +92,7 @@ class PlaylistController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist atualizada com sucesso!');
+        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist updated successfully!');
     }
 
     /**
@@ -106,7 +106,7 @@ class PlaylistController extends Controller
         }
 
         $playlist->delete();
-        return redirect()->route('playlists.index')->with('success', 'Playlist removida com sucesso!');
+        return redirect()->route('playlists.index')->with('success', 'Playlist removed successfully!');
     }
 
     /**
@@ -132,7 +132,7 @@ class PlaylistController extends Controller
 
         $playlist->musics()->attach($musicId, ['order' => $playlist->musics()->count() + 1]);
 
-        return back()->with('success', 'Música adicionada à playlist!');
+        return back()->with('success', 'Song added to playlist!');
     }
 
     /**
@@ -151,7 +151,7 @@ class PlaylistController extends Controller
 
         $playlist->musics()->detach($request->input('music_id'));
 
-        return back()->with('success', 'Música removida da playlist!');
+        return back()->with('success', 'Song removed from playlist!');
     }
 
 

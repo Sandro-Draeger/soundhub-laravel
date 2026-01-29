@@ -116,7 +116,7 @@ class ItunesController extends Controller
             'photo' => $artistPhoto
         ]);
 
-        return back()->with('success', 'Banda "' . $artistName . '" importada com sucesso!');
+        return back()->with('success', 'Band "' . $artistName . '" imported successfully!');
     }
 
     /**
@@ -176,7 +176,7 @@ class ItunesController extends Controller
         $results = $response->json()['results'] ?? [];
         array_shift($results);
 
-        
+
         foreach ($results as $songData) {
             if (isset($songData['trackName'])) {
                 Song::create([
@@ -191,7 +191,7 @@ class ItunesController extends Controller
             }
         }
 
-        return back()->with('success', 'Álbum "' . $request->input('album_name') . '" e suas músicas importados com sucesso!');
+        return back()->with('success', 'Album "' . $request->input('album_name') . '" and its songs imported successfully!');
     }
 
     /**

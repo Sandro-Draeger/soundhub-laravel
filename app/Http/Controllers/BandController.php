@@ -69,6 +69,6 @@ class BandController extends Controller
     public function destroy(Band $band)
     {
         $band->delete();
-        return redirect()->route('bands.index')->with('success', 'Banda removida com sucesso!');
+        return redirect()->route('bands.index')->with('success', 'Band removed successfully!');
     }
 }
