@@ -167,16 +167,16 @@ class ItunesController extends Controller
             'image' => $imageUrl,
         ]);
 
-        // Busca as músicas do álbum na API do iTunes
+
         $response = Http::get('https://itunes.apple.com/lookup', [
             'id' => $request->input('itunes_id'),
             'entity' => 'song'
         ]);
 
         $results = $response->json()['results'] ?? [];
-        array_shift($results); // Remove o álbum, deixa só as músicas
+        array_shift($results);
 
-        // Cria as músicas
+        
         foreach ($results as $songData) {
             if (isset($songData['trackName'])) {
                 Song::create([
