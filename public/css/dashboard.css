@@ -1,0 +1,190 @@
+/*Init Dashboard Page */
+/* ====== BASE ====== */
+body {
+    background: #121212;
+    color: #fff;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* ====== CONTAINER ====== */
+.dashboard-container {
+    width: 100%;
+    max-width: 1400px;
+    padding: 20px 40px 20px 20px;
+    margin-left: 80px;
+}
+
+/* ====== HEADER ====== */
+.dashboard-header {
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    margin-bottom: 15px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ====== BUTTONS ====== */
+.btn {
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+}
+
+.btn-primary {
+    background: #6e67d1;
+    color: #ffffff;
+}
+
+.btn-secondary {
+    background: #535353;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #6e67d1;
+    color: #ffffff;
+}
+
+/* ====== ALERTS ====== */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background: #1db954;
+    color: #000;
+}
+
+.alert-error {
+    background: #e91429;
+}
+
+/* ====== ALBUM GRID ====== */
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+/* ====== ALBUM CARD ====== */
+.album-card {
+    background: #181818;
+    border-radius: 12px;
+    padding: 15px;
+    transition:
+        transform 0.2s,
+        background 0.2s;
+}
+
+.album-card:hover {
+    background: #282828;
+    transform: translateY(-5px);
+}
+
+.album-cover-wrapper {
+    position: relative;
+}
+
+.album-cover {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.album-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.album-info {
+    margin-top: 12px;
+}
+
+.album-title {
+    font-weight: 700;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-artist {
+    font-size: 14px;
+    color: #b3b3b3;
+}
+
+/* ====== ADMIN ACTIONS ====== */
+.album-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.album-actions form {
+    margin: 0;
+}
+
+.btn-manage {
+    background: #6e67d1;
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.btn-delete {
+    background: #e91429;
+    color: #fff;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.album-actions .btn,
+.album-actions button {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+
+    padding: 0;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.album-actions i {
+    margin: 0;
+    line-height: 1;
+}
+
+/* ====== EMPTY ====== */
+.empty-state {
+    background: #181818;
+    border-radius: 12px;
+    padding: 50px;
+    text-align: center;
+}
