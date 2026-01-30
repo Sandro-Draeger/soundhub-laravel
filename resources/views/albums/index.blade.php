@@ -30,7 +30,7 @@
                         @endif
 
                         {{-- PLAY OVERLAY (ÚNICO LINK) --}}
-                        <a href="{{ route('albums.show', $album) }}" class="play-overlay">
+                        <a href="{{ route('albums.show', ['album' => $album->id]) }}" class="play-overlay">
                             <i class="bi bi-play-fill"></i>
                         </a>
                     </div>

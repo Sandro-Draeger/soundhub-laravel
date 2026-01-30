@@ -47,17 +47,10 @@
                     <th style="padding: 15px; text-align: center; font-weight: 600;">Ações</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach($musics as $index => $music)
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 15px;">{{ $index + 1 }}</td>
-                        <td style="padding: 15px;">{{ $music->track_name }}</td>
-                        <td style="padding: 15px;">{{ $music->artist_name }}</td>
-                        <td style="padding: 15px;">{{ $music->album->title ?? '-' }}</td>
-                        <td style="padding: 15px; text-align: center;">
-                            <form method="POST" action="{{ route('playlists.remove-music', $playlist) }}" style="display: inline;">
+                            <form method="POST" action="{{ route('playlists.remove-music') }}">
                                 @csrf
                                 <input type="hidden" name="music_id" value="{{ $music->id }}">
+                                <input type="hidden" name="playlist_id" value="{{ $playlist->id }}">
                                 <button type="submit" onclick="return confirm('Tem certeza?')" style="
                                     background: #f44336;
                                     color: white;
@@ -66,17 +59,14 @@
                                     border-radius: 6px;
                                     font-size: 12px;
                                     font-weight: 600;
-                                    cursor: pointer;
-                                ">Remover</button>
+                                    cursor: pointer;">
+                                    Remover
+                                </button>
                             </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
         </table>
     @else
         <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 20px; border-radius: 8px; text-align: center;">
-            Esta playlist está vazia. Adicione músicas para começar!
+            Empty playlist. Add some music to enjoy your tunes!
         </div>
     @endif
 

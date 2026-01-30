@@ -14,22 +14,29 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email'    => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+ public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email'    => ['required', 'email'],
+        'password' => ['required'],
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+
+        if (Auth::user()->role === 'admin') {
             return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'Credenciais inválidas.',
-        ]);
+        // Usuário comum
+        return redirect()->route('albums.index');
     }
+
+    return back()->withErrors([
+        'email' => 'Credenciais inválidas.',
+    ]);
+}
+
 
     public function showRegister()
     {
@@ -52,7 +59,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        return redirect()->route('dashboard');
+        return redirect()->route('albums.index');
     }
 
     public function logout(Request $request)

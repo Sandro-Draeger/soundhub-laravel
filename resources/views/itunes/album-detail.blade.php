@@ -57,6 +57,7 @@
                     </p>
                 @endif
 
+                {{-- IMPORT ALBUM (ADMIN ONLY) --}}
                 @if(auth()->check() && auth()->user()->role === 'admin')
                     <form method="POST"
                           action="{{ route('itunes.import-album') }}"
@@ -88,30 +89,74 @@
                         <th>Song</th>
                         <th>Duration</th>
                         <th>Preview</th>
+                        <th>Playlist</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($songs as $index => $song)
                         <tr>
                             <td>{{ $index + 1 }}</td>
+
                             <td>{{ $song['trackName'] ?? 'Without name' }}</td>
+
                             <td>
                                 {{ isset($song['trackTimeMillis'])
                                     ? gmdate('i:s', $song['trackTimeMillis'] / 1000)
                                     : '--'
                                 }}
                             </td>
+
                             <td>
-    @if(isset($song['previewUrl']))
-        <div class="audio-preview">
-            <audio controls>
-                <source src="{{ $song['previewUrl'] }}">
-            </audio>
-        </div>
-    @else
-        <span class="muted">Not available</span>
-    @endif
-</td>
+                                @if(isset($song['previewUrl']))
+                                    <div class="audio-preview">
+                                        <audio controls>
+                                            <source src="{{ $song['previewUrl'] }}">
+                                        </audio>
+                                    </div>
+                                @else
+                                    <span class="muted">Not available</span>
+                                @endif
+                            </td>
+
+                            {{-- ADD TO PLAYLIST (USER ONLY) --}}
+                            <td>
+                                @if(auth()->check() && auth()->user()->role === 'user')
+                                    <form method="POST"
+                                          action="{{ route('playlist.add-song') }}"
+                                          class="playlist-form">
+                                        @csrf
+
+                                        <input type="hidden"
+                                               name="track_name"
+                                               value="{{ $song['trackName'] ?? '' }}">
+
+                                        <input type="hidden"
+                                               name="preview_url"
+                                               value="{{ $song['previewUrl'] ?? '' }}">
+
+                                        <select name="playlist_id" required>
+                                            <option value="">Add to playlist...</option>
+                                            @forelse($playlists as $playlist)
+                                                <option value="{{ $playlist->id }}">
+                                                    {{ $playlist->name }}
+                                                </option>
+                                            @empty
+                                                <option disabled>
+                                                    You have no playlists
+                                                </option>
+                                            @endforelse
+                                        </select>
+
+                                        <button type="submit"
+                                                class="btn-add-playlist">
+                                            +
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="muted">—</span>
+                                @endif
+                            </td>
+
                         </tr>
                     @endforeach
                 </tbody>

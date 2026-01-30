@@ -269,3 +269,13 @@ audio::-webkit-media-controls-play-button {
     color: #777;
     font-size: 14px;
 }
+
+/* playlists.css */
+.btn-add-playlist {
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+select {
+    margin-right: 6px;
+}

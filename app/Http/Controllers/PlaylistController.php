@@ -3,156 +3,116 @@
 namespace App\Http\Controllers;
 
 use App\Models\Playlist;
-use App\Models\Music;
 use Illuminate\Http\Request;
 
 class PlaylistController extends Controller
 {
-
-
-    /**
-     * Lista todas as playlists do usuário
-     */
+    // Lista playlists do usuário
     public function index()
     {
         $playlists = auth()->user()->playlists()->with('musics')->get() ?? [];
         return view('playlists.index', compact('playlists'));
     }
 
-    /**
-     * Mostra formulário para criar nova playlist
-     */
+    // Cria nova playlist
     public function create()
     {
         return view('playlists.create');
     }
 
-    /**
-     * Salva nova playlist
-     */
+    // Salva playlist
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
         ]);
-
         $playlist = auth()->user()->playlists()->create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
-
-        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist created successfully!');
+        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist criada!');
     }
 
-    /**
-     * Mostra uma playlist específica
-     */
+    // Mostra uma playlist
     public function show(Playlist $playlist)
     {
-        // Verifica se o usuário tem permissão
         if ($playlist->user_id !== auth()->id()) {
-            abort(403, 'Você não tem permissão para visualizar esta playlist.');
+            abort(403);
         }
-
         $musics = $playlist->musics;
         return view('playlists.show', compact('playlist', 'musics'));
     }
 
-    /**
-     * Mostra formulário para editar playlist
-     */
+    // Edita playlist
     public function edit(Playlist $playlist)
     {
-        // Verifica se o usuário tem permissão
         if ($playlist->user_id !== auth()->id()) {
-            abort(403, 'Você não tem permissão para editar esta playlist.');
+            abort(403);
         }
-
         return view('playlists.edit', compact('playlist'));
     }
 
-    /**
-     * Atualiza playlist
-     */
+    // Atualiza playlist
     public function update(Request $request, Playlist $playlist)
     {
-        // Verifica se o usuário tem permissão
         if ($playlist->user_id !== auth()->id()) {
-            abort(403, 'Você não tem permissão para atualizar esta playlist.');
+            abort(403);
         }
-
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
         ]);
-
         $playlist->update([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
-
-        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist updated successfully!');
+        return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist atualizada!');
     }
 
-    /**
-     * Deleta playlist
-     */
+    // Remove playlist
     public function destroy(Playlist $playlist)
     {
-        // Verifica se o usuário tem permissão
         if ($playlist->user_id !== auth()->id()) {
-            abort(403, 'Você não tem permissão para deletar esta playlist.');
+            abort(403);
         }
-
         $playlist->delete();
-        return redirect()->route('playlists.index')->with('success', 'Playlist removed successfully!');
+        return redirect()->route('playlists.index')->with('success', 'Playlist removida!');
     }
 
-    /**
-     * Adiciona música à playlist
-     */
-    public function addMusic(Request $request, Playlist $playlist)
+    // Adiciona música à playlist
+    public function addSong(Request $request)
     {
-        // Verifica se o usuário tem permissão
-        if ($playlist->user_id !== auth()->id()) {
-            abort(403, 'Você não tem permissão para modificar esta playlist.');
-        }
-
         $request->validate([
-            'music_id' => 'required|exists:musics,id',
+            'playlist_id' => 'required|exists:playlists,id',
+            'track_name'  => 'required|string',
+            'preview_url' => 'nullable|string',
+            'album_id'    => 'required|exists:albums,id',
+            'artist_name' => 'required|string',
         ]);
-
-        $musicId = $request->input('music_id');
-
-        // Verifica se a música já está na playlist
-        if ($playlist->musics()->where('music_id', $musicId)->exists()) {
-            return back()->with('error', 'Esta música já está na playlist.');
-        }
-
-        $playlist->musics()->attach($musicId, ['order' => $playlist->musics()->count() + 1]);
-
-        return back()->with('success', 'Song added to playlist!');
+        $playlist = Playlist::where('id', $request->playlist_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+        $playlist->musics()->create([
+            'track_name'  => $request->track_name,
+            'preview_url' => $request->preview_url,
+            'album_id'    => $request->album_id,
+            'artist_name' => $request->artist_name,
+        ]);
+        return back()->with('success', 'Song added to your playlist!');
     }
 
-    /**
-     * Remove música da playlist
-     */
-    public function removeMusic(Request $request, Playlist $playlist)
+    public function removeMusic(Request $request)
     {
-        // Verifica se o usuário tem permissão
-        if ($playlist->user_id !== auth()->id()) {
-            abort(403, 'Você não tem permissão para modificar esta playlist.');
-        }
-
         $request->validate([
-            'music_id' => 'required|exists:musics,id',
+            'playlist_id' => 'required|exists:playlists,id',
+            'music_id'    => 'required|exists:musics,id',
         ]);
-
-        $playlist->musics()->detach($request->input('music_id'));
-
-        return back()->with('success', 'Song removed from playlist!');
+        $playlist = Playlist::where('id', $request->playlist_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+        $music = $playlist->musics()->where('musics.id', $request->music_id)->firstOrFail();
+        $playlist->musics()->detach($music->id);
+        return back()->with('success', 'Song removed from your playlist!');
     }
-
-
 }

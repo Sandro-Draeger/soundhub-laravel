@@ -8,10 +8,11 @@
     {{-- HEADER --}}
     <div class="dashboard-header">
         <h1>Welcome, {{ auth()->user()->name }}</h1>
-        <p>Manage your music collection and explore new albums.</p>
+
 
         @if(auth()->user()->role === 'admin')
             <div class="admin-actions">
+                <p>Manage your music collection and explore new albums.</p>
                 <a href="{{ route('bands.create') }}" class="btn btn-primary">
                     <i class="bi bi-plus-lg"></i> Add Band
                 </a>

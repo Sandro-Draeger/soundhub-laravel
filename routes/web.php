@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -43,22 +44,41 @@ Route::middleware('auth')->group(function () {
 
 // ========== ÁLBUNS ==========
 Route::resource('albums', AlbumController::class);
+
+//users comuns podem ver lista e detalhes
+Route::resource('albums', AlbumController::class)->only(['index', 'show']);
 // Proteger rotas específicas de álbum para admin
 Route::middleware('auth')->group(function () {
     Route::get('albums/create', [AlbumController::class, 'create'])->middleware('admin')->name('albums.create');
-    Route::post('albums', [AlbumController::class, 'store'])->middleware('admin')->name('albums.store');
+    Route::post('albums', [AlbumController::class, 'store'])->name('albums.store');
     Route::get('albums/{album}/edit', [AlbumController::class, 'edit'])->middleware('admin')->name('albums.edit');
     Route::put('albums/{album}', [AlbumController::class, 'update'])->middleware('admin')->name('albums.update');
     Route::delete('albums/{album}', [AlbumController::class, 'destroy'])->middleware('admin')->name('albums.destroy');
+
 });
 
 // ========== PLAYLISTS ==========
 Route::middleware('auth')->group(function () {
     Route::resource('playlists', PlaylistController::class);
     Route::get('playlists', [PlaylistController::class, 'index'])->name('playlists.index');
-    Route::post('playlists/{playlist}/add-music', [PlaylistController::class, 'addMusic'])->name('playlists.add-music');
-    Route::post('playlists/{playlist}/remove-music', [PlaylistController::class, 'removeMusic'])->name('playlists.remove-music');
+    Route::get('playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
+
+    Route::post('playlists', [PlaylistController::class, 'store'])->name('playlists.store');
+    Route::get('playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
+    Route::get('playlists/{playlist}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
+    Route::put('playlists/{playlist}', [PlaylistController::class, 'update'])->name('playlists.update');
+    Route::delete('playlists/{playlist}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
+    Route::post('/playlists/remove-music', [PlaylistController::class, 'removeMusic'])->name('playlists.remove-music');
 });
+// ========== ROTAS ADICIONAIS PARA PLAYLISTS ==========
+Route::post('/playlist/add-song', [PlaylistController::class, 'addSong'])
+    ->name('playlist.add-song')
+    ->middleware('auth');
+
+Route::post('/playlist/remove-song', [PlaylistController::class, 'removeSong'])
+    ->name('playlist.remove-song')
+    ->middleware('auth');
+
 
 // ========== MÚSICAS ==========
 Route::get('/music', [SongController::class, 'index'])->name('music.index');
@@ -70,5 +90,4 @@ Route::get('/itunes/results', [ItunesController::class, 'results'])->name('itune
 Route::get('/itunes/album/{collectionId}', [ItunesController::class, 'show'])->name('itunes.album');
 Route::post('/itunes/import-artist', [ItunesController::class, 'importArtist'])->middleware('auth', 'admin')->name('itunes.import-artist');
 Route::post('/itunes/import-album', [ItunesController::class, 'importAlbum'])->middleware('auth', 'admin')->name('itunes.import-album');
-
 
