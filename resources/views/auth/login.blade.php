@@ -20,8 +20,6 @@
         <img src="{{ asset('sound-hub-icon.svg') }}" alt="SoundHub">
       </div>
 
-      <h2 class="login-title">Login</h2>
-
       <div class="field">
         <label>Email</label>
         <input

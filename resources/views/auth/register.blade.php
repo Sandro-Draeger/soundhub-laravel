@@ -18,10 +18,10 @@
         <img src="{{ asset('sound-hub-icon.svg') }}" alt="SoundHub">
       </div>
 
-      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Criar Conta</h2>
+      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Create Account</h2>
 
       <div class="field">
-        <label>Nome Completo</label>
+        <label>Name</label>
         <input
           class="input @error('name') error @enderror"
           name="name"
@@ -51,7 +51,7 @@
       </div>
 
       <div class="field">
-        <label>Senha</label>
+        <label>Password</label>
         <input
           name="password"
           type="password"
@@ -66,7 +66,7 @@
       </div>
 
       <div class="field">
-        <label>Confirmar Senha</label>
+        <label>Confirm Password</label>
         <input
           name="password_confirmation"
           type="password"
@@ -78,11 +78,11 @@
       </div>
 
       <button type="submit" class="register-button">
-        Criar Conta
+        Create Account
       </button>
 
       <div class="login-link">
-        Já tem conta? <a href="{{ route('login') }}">Faça login</a>
+        Already have an account? <a href="{{ route('login') }}">Login</a>
       </div>
     </form>
   </div>
