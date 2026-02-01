@@ -26,10 +26,12 @@ class PlaylistController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         $playlist = auth()->user()->playlists()->create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
+            'photo' => $request->file('photo') ? $request->file('photo')->store('covers', 'public') : null,
         ]);
         return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist criada!');
     }
@@ -62,10 +64,12 @@ class PlaylistController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         $playlist->update([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
+            'photo' => $request->file('photo') ? $request->file('photo')->store('covers', 'public') : null,
         ]);
         return redirect()->route('playlists.show', $playlist)->with('success', 'Playlist atualizada!');
     }
