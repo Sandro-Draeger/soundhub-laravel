@@ -112,7 +112,7 @@
                             <td class="track-actions">
                                 <form
                                     method="POST"
-                                    action="{{ route('playlists.remove-music') }}"
+                                    action="{{ route('playlist.remove-song') }}"
                                 >
                                     @csrf
 

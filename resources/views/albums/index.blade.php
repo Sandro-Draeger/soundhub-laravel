@@ -1,12 +1,17 @@
 @extends('fe_master')
 
+@section('styles')
 <link rel="stylesheet" href="{{ asset('css/albums.css') }}">
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endsection
 
 @section('content')
 <div class="albums-page">
 
     <div class="albums-header">
-        <h1 class="page-title">Welcome {{ auth()->user()->name ?? 'Guest' }}, let's explore our music collection!</h1>
+        <h1 class="page-title">
+            Welcome {{ auth()->user()->name ?? 'Guest' }}, let's explore our music collection!
+        </h1>
 
         @if(auth()->check() && auth()->user()->role === 'admin')
             <a href="{{ route('itunes.search') }}" class="btn-primary">
@@ -17,7 +22,6 @@
 
     @if($albums->count())
         <div class="albums-grid">
-
             @foreach($albums as $album)
                 <div class="album-card">
 
@@ -29,8 +33,8 @@
                             <div class="cover-placeholder">Without cover</div>
                         @endif
 
-                        {{-- PLAY OVERLAY (ÚNICO LINK) --}}
-                        <a href="{{ route('albums.show', ['album' => $album->id]) }}" class="play-overlay">
+                        {{-- PLAY OVERLAY --}}
+                        <a href="{{ route('albums.show', $album->id) }}" class="play-overlay">
                             <i class="bi bi-play-fill"></i>
                         </a>
                     </div>
@@ -46,7 +50,6 @@
 
                 </div>
             @endforeach
-
         </div>
     @else
         <div class="empty-state">

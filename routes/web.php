@@ -6,6 +6,8 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ItunesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\BandController;
+use App\Http\Controllers\SongController;
 
 
 /*
@@ -91,3 +93,23 @@ Route::get('/itunes/results', [ItunesController::class, 'results'])->name('itune
 Route::get('/itunes/album/{collectionId}', [ItunesController::class, 'show'])->name('itunes.album');
 Route::post('/itunes/import-artist', [ItunesController::class, 'importArtist'])->name('itunes.import-artist')->middleware(['auth', 'admin']);
 Route::post('/itunes/import-album', [ItunesController::class, 'importAlbum'])->name('itunes.import-album')->middleware(['auth', 'admin']);
+
+
+
+/*
+|--------------------------------------------------------------------------
+| BANDAS
+|--------------------------------------------------------------------------
+*/
+Route::get('/bands', [BandController::class, 'index'])->name('bands.index');
+Route::get('/bands/{band}', [BandController::class, 'show'])->name('bands.show');
+
+
+/*
+|--------------------------------------------------------------------------
+| MÚSICAS
+|--------------------------------------------------------------------------
+*/
+Route::get('/music', [SongController::class, 'index'])
+    ->name('music.index');
+

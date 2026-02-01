@@ -13,6 +13,8 @@ class AlbumController extends Controller
     public function index()
     {
         $albums = Album::with('band', 'songs')->get();
+        
+
         return view('albums.index', compact('albums'));
     }
 

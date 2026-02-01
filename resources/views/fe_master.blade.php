@@ -11,7 +11,7 @@
     >
 
     <link rel="stylesheet" href="{{ asset('fe_master.css') }}">
-
+    @yield('styles')
     @stack('css')
 </head>
 <body>
@@ -24,76 +24,85 @@
     </div>
 
     {{-- MENU --}}
-    <nav class="menu">
+   <nav class="menu">
 
-        @auth
-            <a href="{{ route('albums.index') }}"
-               class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
-                <i class="bi bi-house"></i>
-                <span>Home</span>
-            </a>
-        @endauth
-
+    {{-- =====================
+       VISITANTE (SEM AUTH)
+    ===================== --}}
+    @guest
         <a href="{{ route('albums.index') }}"
            class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
             <i class="bi bi-disc"></i>
             <span>Albums</span>
         </a>
 
-        @auth
+        <hr class="menu-divider">
+
+        <a href="{{ route('login') }}"
+           class="{{ request()->routeIs('login') ? 'active' : '' }}">
+            <i class="bi bi-box-arrow-in-right"></i>
+            <span>Login</span>
+        </a>
+
+        <a href="{{ route('register') }}"
+           class="{{ request()->routeIs('register') ? 'active' : '' }}">
+            <i class="bi bi-person-plus"></i>
+            <span>Register</span>
+        </a>
+    @endguest
+
+
+    {{-- =====================
+       AUTHENTICATED
+    ===================== --}}
+    @auth
+
+        {{-- ===== ADMIN ===== --}}
+        @if(auth()->user()->role === 'admin')
+
+            <span class="menu-label">
+                Admin Panel
+            </span>
+
+            <a href="{{ route('dashboard') }}"
+               class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+
+        {{-- ===== USER ===== --}}
+        @else
+
+            <a href="{{ route('albums.index') }}"
+               class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
+                <i class="bi bi-disc"></i>
+                <span>Albums</span>
+            </a>
+
             <a href="{{ route('playlists.index') }}"
                class="{{ request()->routeIs('playlists.*') ? 'active' : '' }}">
                 <i class="bi bi-list-ul"></i>
                 <span>My Playlists</span>
             </a>
 
-            <a href="{{ route('itunes.search') }}"
-               class="{{ request()->routeIs('itunes.*') ? 'active' : '' }}">
-                <i class="bi bi-search"></i>
-                <span>Buscar iTunes</span>
-            </a>
 
-            @if(auth()->user()->role === 'admin')
-                <hr class="menu-divider">
+        @endif
 
-                <span class="menu-label">
-                    Admin Panel
-                </span>
+        <hr class="menu-divider">
 
-                <a href="{{ route('dashboard') }}"
-                   class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                    <i class="bi bi-speedometer2"></i>
-                    <span>Dashboard</span>
-                </a>
-            @endif
+        {{-- LOGOUT (ADMIN + USER) --}}
+        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+            @csrf
+            <button type="submit" class="logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </button>
+        </form>
 
-            <hr class="menu-divider">
+    @endauth
 
-            <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                @csrf
-                <button type="submit" class="logout-btn">
-                    <i class="bi bi-box-arrow-right"></i>
-                    <span>Logout</span>
-                </button>
-            </form>
+</nav>
 
-        @else
-            <hr class="menu-divider">
-
-            <a href="{{ route('login') }}"
-               class="{{ request()->routeIs('login') ? 'active' : '' }}">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
-
-            <a href="{{ route('register') }}"
-               class="{{ request()->routeIs('register') ? 'active' : '' }}">
-                <i class="bi bi-person-plus"></i>
-                <span>Register</span>
-            </a>
-        @endauth
-
-    </nav>
 
     {{-- USER / NOW PLAYING --}}
     <div class="now-playing">
