@@ -9,7 +9,8 @@
     <div class="dashboard-header">
         @if(auth()->user()->role === 'admin')
             <div class="admin-actions">
-                <p>Manage your music collection and explore new albums.</p>
+                <p>Welcome, {{ auth()->user()->name }}!</p>
+                <p>Manage your music collection:</p>
 
                 <a href="{{ route('itunes.search') }}" class="btn btn-secondary">
                     <i class="bi bi-music-note-list"></i> Add Album

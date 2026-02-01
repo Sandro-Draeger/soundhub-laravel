@@ -160,3 +160,112 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* ========== INLINE PLAYLIST FORM ========== */
+.playlist-inline-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ========== SELECT (Spotify style) ========== */
+.playlist-inline-form select {
+    appearance: none;            /* remove estilo nativo */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background: #121212;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 999px;
+
+    padding: 6px 28px 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    min-width: 130px;
+
+    /* arrow custom */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+/* Hover + focus */
+.playlist-inline-form select:hover {
+    border-color: #6e67d1;
+}
+
+.playlist-inline-form select:focus {
+    outline: none;
+    border-color: #6e67d1;
+}
+
+/* ========== ADD BUTTON ========== */
+.playlist-inline-form button {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: none;
+
+    background: #6e67d1;
+    color: #000;
+
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+/* Hover effect */
+.playlist-inline-form button:hover {
+    background: #817bd3;
+    transform: scale(1.08);
+}
+
+/* Active (click) */
+.playlist-inline-form button:active {
+    transform: scale(0.95);
+}
+
+.add-btn {
+    all: unset; /* zera TUDO (muito importante) */
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #6e67d1;
+    color: #000;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+.add-btn:hover {
+    background: #817bd3;
+    transform: scale(1.12);
+}
+
+.add-btn:active {
+    transform: scale(0.95);
+}

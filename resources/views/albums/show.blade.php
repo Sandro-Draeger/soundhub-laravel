@@ -1,6 +1,7 @@
 @extends('fe_master')
 
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ asset('css/albums.css') }}">
 
 @section('content')
 <div class="album-page">
@@ -108,9 +109,9 @@
                                             @endforeach
                                         </select>
 
-                                        <button class="btn-primary btn-sm">
-                                            Add
-                                        </button>
+                                        <button type="submit" class="add-btn" title="Add to playlist">
+    +
+</button>
                                     </form>
                                 @endif
                             </td>

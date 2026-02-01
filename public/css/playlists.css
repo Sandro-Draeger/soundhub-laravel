@@ -1,465 +1,288 @@
-/* ===== PLAYLIST ADD FORM ===== */
-.playlist-add-form {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 30px;
-    align-items: center;
-}
-
-.playlist-add-form select {
-    background: #282828;
-    border: 1px solid #333;
-    color: #fff;
-    padding: 10px 14px;
-    border-radius: 30px;
-    min-width: 280px;
-    font-size: 14px;
-}
-
-.playlist-add-form select:focus {
-    outline: none;
-    border-color: #6e67d1;
-}
-
-/* ===== Layout Geral ===== */
-.playlist-container {
-    padding: 32px;
-    max-width: 1200px;
-    margin: auto;
-    color: #fff;
-    margin-left: 25px;
-}
-
-/* ===== Header ===== */
-.playlist-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 32px;
-}
-
-.playlist-header h1 {
-    font-size: 28px;
-    font-weight: 700;
-}
-
-.btn-primary-create {
-    background: #6e67d1;
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.btn-primary:hover {
-    background: #837ece;
-}
-
-/* ===== Alerts ===== */
-.alert-success {
-    background: #03bb31;
-    color: #000;
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-}
-
-/* ===== Grid ===== */
-.playlist-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 16px;
-}
-
-
-/* ===== Card ===== */
-.playlist-card {
-    position: relative;
-    background: #181818;
-    border-radius: 12px;
-    padding: 16px;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.playlist-card:hover {
-    background: #282828;
-    transform: translateY(-4px);
-}
-
-/* ===== Imagem ===== */
-.playlist-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 12px;
-}
-
-.playlist-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* ===== Info ===== */
-.playlist-info h3 {
-    font-size: 25px;
-    margin: 0 0 4px;
-}
-
-.playlist-description {
-    font-size: 14px;
-    color: #b3b3b3;
-    margin-bottom: 8px;
-}
-
-.playlist-count {
-    font-size: 12px;
-    color: #a7a7a7;
-}
-
-/* ===== Actions ===== */
-.playlist-actions {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    margin-top: 10px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
-}
-
-.playlist-card:hover .playlist-actions {
-    opacity: 1;
-}
-
-/* ===== Icon Buttons ===== */
-.icon-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.15s ease;
-}
-
-
-
-.icon-btn:hover {
-    background: #6e67d1;
-    color: #fff;
-    transform: scale(1.05);
-}
-
-/* delete */
-.icon-btn.danger:hover {
-    background: #ef4444;
-    color: #fff;
-}
-
-
-/*===================CREATE PAGE STYLES ===================*/
-/* ===== Layout ===== */
-.playlist-create-container {
-    max-width: 520px;
-    margin: 40px auto;
-    padding: 0 20px;
-    color: #fff;
-}
-
-.page-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 24px;
-}
-
-/* ===== Form Card ===== */
-.playlist-form {
-    background: #181818;
-    border-radius: 12px;
-    padding: 28px;
-}
-
-/* ===== Inputs ===== */
-.form-group {
-    margin-bottom: 22px;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.playlist-form input[type="text"],
-.playlist-form textarea {
-    width: 100%;
+/* =========================================================
+   BASE (PLAYLIST ONLY)
+========================================================= */
+body {
     background: #121212;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 12px;
-    color: #fff;
-    font-size: 14px;
+    color: #ffffff;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
-.playlist-form textarea {
-    min-height: 100px;
-    resize: vertical;
+
+/* =========================================================
+   PAGE WRAPPER
+========================================================= */
+.album-page {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 40px;
 }
 
-/* ===== Cover Upload ===== */
-.cover-upload {
-    position: relative;
-    background: #121212;
-    border: 2px dashed #333;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: border 0.2s ease;
-}
 
-.cover-upload:hover {
-    border-color: #6e67d1;
-}
-
-.cover-upload input {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.cover-upload span {
-    font-size: 14px;
-    color: #b3b3b3;
-}
-
-/* ===== Help / Errors ===== */
-.form-help {
-    display: block;
-    font-size: 12px;
-    color: #888;
-    margin-top: 6px;
-}
-
-.form-error {
-    display: block;
-    margin-top: 6px;
-    font-size: 12px;
-    color: #ef4444;
-}
-
-/* ===== Actions ===== */
-.form-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 28px;
-}
-
-.btn-primary {
-    flex: 1;
-    background: #6e67d1;
-    color: #FFF;
-    padding: 12px;
-    border-radius: 999px;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background: #5a52b8;
-}
-
-.btn-secondary {
-    flex: 1;
-    background: #2a2a2a;
-    color: #fff;
-    padding: 12px;
-    border-radius: 999px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.btn-secondary:hover {
-    background: #333;
-}
-
-/*===================SHOW PLAYLIST ===================*/
-/* ===== Layout ===== */
-.playlist-page {
-    max-width: 1100px;
-    margin: auto;
-    padding: 30px;
-    color: #fff;
-}
-
-/* ===== Back ===== */
+/* =========================================================
+   BACK LINK
+========================================================= */
 .back-link {
-    color: #b3b3b3;
-    text-decoration: none;
     display: inline-block;
     margin-bottom: 20px;
+    font-size: 14px;
+    color: #b3b3b3;
+    text-decoration: none;
 }
 
-/* ===== Header ===== */
-.playlist-header {
-    display: flex;
-    gap: 28px;
-    align-items: flex-end;
-    margin-bottom: 30px;
+.back-link:hover {
+    color: #ffffff;
 }
 
-.playlist-cover {
-    width: 200px;
-    height: 200px;
-    background: #282828;
-    border-radius: 8px;
+
+/* =========================================================
+   HEADER / HERO
+========================================================= */
+.album-header {
+    position: relative;
+    background: linear-gradient(180deg, #2a2a2a, #121212);
+    border-radius: 16px;
+    padding: 56px;
+    margin-bottom: 40px;
+}
+
+.album-header-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+
+/* =========================================================
+   PLAYLIST COVER (SQUARE – FIXED)
+========================================================= */
+.album-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
     overflow: hidden;
+    background: #282828;
 }
 
-.playlist-cover img {
+.album-cover img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-.playlist-cover-placeholder {
+.album-cover-placeholder {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    font-weight: 700;
-    color: #aaa;
+    color: #777;
+    font-size: 14px;
 }
 
-.playlist-info h1 {
-    font-size: 48px;
-    margin: 10px 0;
+
+/* =========================================================
+   HEADER INFO / TEXT
+========================================================= */
+.album-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
 }
 
-.playlist-type {
-    font-size: 12px;
+.album-type {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.3px;
     text-transform: uppercase;
     color: #b3b3b3;
-    letter-spacing: 1px;
 }
 
-.playlist-description {
+/* BIG TITLE (PLAYLIST HERO) */
+.album-title {
+    font-size: clamp(64px, 6vw, 96px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin: 6px 0 10px;
+    word-break: break-word;
+}
+
+.album-artist {
+    font-size: 18px;
     color: #b3b3b3;
-    margin-bottom: 6px;
+    max-width: 90%;
 }
 
-.playlist-meta {
-    font-size: 14px;
+.album-meta {
+    font-size: 15px;
     color: #a7a7a7;
 }
 
-/* ===== Edit ===== */
-.btn-edit {
-    margin-top: 14px;
-    display: inline-block;
-    background: #1db954;
-    color: #000;
-    padding: 10px 20px;
-    border-radius: 999px;
-    font-weight: 700;
+
+/* =========================================================
+   EDIT PLAYLIST BUTTON
+========================================================= */
+.playlist-edit-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    background: #181818;
+    color: #b3b3b3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
     text-decoration: none;
+    cursor: pointer;
+
+    transition: background 0.15s ease,
+                transform 0.15s ease,
+                color 0.15s ease;
 }
 
-/* ===== Alerts ===== */
-.alert-success,
-.alert-error {
-    padding: 12px 16px;
-    border-radius: 8px;
+.playlist-edit-btn:hover {
+    background: #6e67d1;
+    color: #000;
+    transform: scale(1.12);
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
     margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+========================================================= */
+.alert-success {
+    background: rgba(30, 215, 96, 0.15);
+    color: #1ed760;
+    border: 1px solid rgba(30, 215, 96, 0.4);
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 22px;
     font-size: 14px;
 }
 
-.alert-success {
-    background: rgba(30, 215, 96, 0.15);
-    border: 1px solid rgba(30, 215, 96, 0.4);
-    color: #1ed760;
+
+/* =========================================================
+   TRACKLIST TABLE
+========================================================= */
+.songs-table-wrapper {
+    background: #181818;
+    border-radius: 14px;
+    overflow: hidden;
 }
 
-.alert-error {
-    background: rgba(244, 67, 54, 0.15);
-    border: 1px solid rgba(244, 67, 54, 0.4);
-    color: #f87171;
-}
-
-/* ===== Tracklist ===== */
-.tracklist {
+.songs-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.tracklist thead th {
-    text-align: left;
-    padding: 12px;
+.songs-table thead {
+    background: #242424;
+}
+
+.songs-table th {
     font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
     color: #b3b3b3;
-    border-bottom: 1px solid #333;
 }
 
-.tracklist tbody tr {
-    transition: background 0.15s ease;
+.songs-table th,
+.songs-table td {
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
 }
 
-.tracklist tbody tr:hover {
-    background: #282828;
+.songs-table tr {
+    border-bottom: 1px solid #2a2a2a;
 }
 
-.tracklist td {
-    padding: 12px;
-    font-size: 14px;
+.songs-table tbody tr:hover {
+    background: #2a2a2a;
 }
 
-.tracklist audio {
-    width: 160px;
+
+/* =========================================================
+   AUDIO PREVIEW
+========================================================= */
+.songs-table audio {
+    height: 30px;
+    max-width: 180px;
 }
 
-/* ===== Actions ===== */
+
+/* =========================================================
+   TRACK ACTIONS (DELETE BUTTON)
+========================================================= */
 .track-actions {
     text-align: right;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+    opacity: 0.4;
+    transition: opacity 0.15s ease;
 }
 
-.tracklist tbody tr:hover .track-actions {
+.songs-table tbody tr:hover .track-actions {
     opacity: 1;
 }
 
-.track-actions button {
-    background: none;
-    border: none;
+/* RED CIRCULAR DELETE BUTTON */
+.icon-trash {
+    all: unset;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: rgba(233, 20, 41, 0.18);
+    color: #e91429;
+
     font-size: 16px;
+    line-height: 1;
     cursor: pointer;
-    color: #b3b3b3;
+
+    transition: background 0.15s ease,
+                transform 0.15s ease,
+                color 0.15s ease;
 }
 
-.track-actions button:hover {
-    color: #ef4444;
+.icon-trash:hover {
+    background: #e91429;
+    color: #ffffff;
+    transform: scale(1.15);
 }
 
-/* ===== Empty ===== */
+
+/* =========================================================
+   EMPTY PLAYLIST
+========================================================= */
 .empty-state {
     background: #181818;
-    border-radius: 12px;
-    padding: 40px;
+    border-radius: 16px;
+    padding: 48px;
     text-align: center;
     color: #b3b3b3;
+    font-size: 15px;
 }

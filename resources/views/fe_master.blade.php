@@ -35,9 +35,15 @@
      </div>
 
     <nav class="menu">
-      <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
+        @if(auth()->check() !== 'admin')
+      <a href="{{ route('albums.index') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
         <i class="bi bi-house"></i> Home
       </a>
+      @else
+       <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        <i class="bi bi-house"></i> Home
+      </a>
+      @endif
 
       <a href="{{ route('albums.index') }}" class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
         <i class="bi bi-disc"></i> Albums

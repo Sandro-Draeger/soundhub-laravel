@@ -629,3 +629,32 @@ audio::-webkit-media-controls-play-button {
     margin-bottom: 20px;
     font-size: 14px;
 }
+
+/* ===== TRASH ICON ===== */
+.track-actions {
+    text-align: right;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.songs-table tbody tr:hover .track-actions {
+    opacity: 1;
+}
+
+.icon-trash {
+    all: unset;
+
+    font-size: 16px;
+    color: #b3b3b3;
+
+    cursor: pointer;
+    line-height: 1;
+
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.icon-trash:hover {
+    color: #ef4444;
+    transform: scale(1.15);
+}
+
