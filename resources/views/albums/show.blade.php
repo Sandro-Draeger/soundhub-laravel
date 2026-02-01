@@ -1,53 +1,123 @@
 @extends('fe_master')
 
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+
 @section('content')
+<div class="album-page">
 
-<input type="text" id="search" placeholder="Pesquisar música">
-<button onclick="searchItunes()">Pesquisar no iTunes</button>
+    {{-- BACK --}}
+    <a href="{{ route('albums.index') }}" class="back-link">
+        ← Back to Albums
+    </a>
 
+    {{-- HEADER --}}
+    <div class="album-header">
+        <div class="album-header-grid">
 
+            {{-- COVER --}}
+            <div class="album-cover">
+                @if($album->image)
+                    <img src="{{ asset('storage/' . $album->image) }}" alt="{{ $album->title }}">
+                @else
+                    <div class="album-cover-placeholder">Album</div>
+                @endif
+            </div>
 
+            {{-- INFO --}}
+            <div class="album-header-info">
+                <span class="album-type">Album</span>
 
-@if(auth()->check())
-    @if(auth()->user()->role === 'admin')
-        <form method="POST" action="{{ route('albums.destroy', $album->id) }}" onsubmit="return confirm('Tem certeza que deseja deletar este álbum?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Deletar Álbum</button>
-        </form>
+                <h1 class="album-title">{{ $album->title }}</h1>
+
+                <p class="album-meta">
+                    {{ $album->songs->count() }} songs
+                </p>
+
+                @if(auth()->check() && auth()->user()->role === 'admin')
+                    <form
+                        method="POST"
+                        action="{{ route('albums.destroy', $album) }}"
+                        onsubmit="return confirm('Delete this album?')"
+                        class="album-admin-actions">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn-danger">
+                            Delete Album
+                        </button>
+                    </form>
+                @endif
+            </div>
+
+        </div>
+    </div>
+
+    {{-- SONGS --}}
+    <h2 class="section-title">Songs</h2>
+
+    @if($album->songs->count())
+        <div class="songs-table-wrapper">
+            <table class="songs-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Preview</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($album->songs as $index => $song)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $song->track_name }}</td>
+                            <td>{{ $song->artist_name }}</td>
+                            <td>
+                                @if($song->preview_url)
+                                    <audio controls>
+                                        <source src="{{ $song->preview_url }}" type="audio/mpeg">
+                                    </audio>
+                                @endif
+                            <td>
+                                @if(auth()->check() && auth()->user()->role == 'user')
+                                    <form
+                                        method="POST"
+                                        action="{{ route('playlist.add-song') }}"
+                                        class="playlist-inline-form">
+                                        @csrf
+
+                                        <input type="hidden" name="track_name" value="{{ $song->track_name }}">
+                                        <input type="hidden" name="preview_url" value="{{ $song->preview_url }}">
+                                        <input type="hidden" name="album_id" value="{{ $album->id }}">
+                                        <input type="hidden" name="artist_name" value="{{ $song->artist_name }}">
+
+                                        <select name="playlist_id" required>
+                                            @foreach(auth()->user()->playlists as $playlist)
+                                                <option value="{{ $playlist->id }}">
+                                                    {{ $playlist->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        <button class="btn-primary btn-sm">
+                                            Add
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @else
+        <div class="empty-state">
+            This album has no songs.
+        </div>
     @endif
-@endif
 
-<h2>Músicas do Álbum</h2>
-@if($album->songs->count())
-    <ul>
-    @foreach($album->songs as $song)
-        <li>
-            {{ $song->track_name }} - {{ $song->artist_name }}
-            @if(auth()->check() && auth()->user()->role !== 'admin')
-                <form method="POST" action="{{ route('playlist.add-song') }}" style="display:inline">
-                    @csrf
-                    <input type="hidden" name="track_name" value="{{ $song->track_name }}">
-                    <input type="hidden" name="preview_url" value="{{ $song->preview_url }}">
-                    <input type="hidden" name="album_id" value="{{ $album->id }}">
-                    <input type="hidden" name="artist_name" value="{{ $song->artist_name }}">
-                    <label for="playlist_id_{{ $song->id }}">Playlist:</label>
-                    <select name="playlist_id" id="playlist_id_{{ $song->id }}">
-                        @foreach(auth()->user()->playlists as $playlist)
-                            <option value="{{ $playlist->id }}">{{ $playlist->name }}</option>
-                        @endforeach
-                    </select>
-                    <button type="submit">Adicionar à Playlist</button>
-                </form>
-            @endif
-        </li>
-    @endforeach
-    </ul>
-@else
-    <p>Nenhuma música cadastrada neste álbum.</p>
-@endif
-
-<div id="results"></div>
+</div>
 
 <script>
 function searchItunes() {
@@ -57,18 +127,20 @@ function searchItunes() {
         .then(res => res.json())
         .then(data => {
             let html = '';
+
             data.forEach(song => {
                 html += `
-                    <p>
-                      ${song.trackName} - ${song.artistName}
-                      <button onclick='addMusic(${JSON.stringify(song)})'>
-                        Adicionar
-                      </button>
-                    </p>`;
+                    <div class="itunes-result-row">
+                        <span>${song.trackName} — ${song.artistName}</span>
+                        <button class="btn btn-primary btn-sm">
+                            Add
+                        </button>
+                    </div>
+                `;
             });
+
             document.getElementById('results').innerHTML = html;
         });
 }
 </script>
-
 @endsection

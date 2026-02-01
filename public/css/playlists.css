@@ -1,0 +1,22 @@
+/* ===== PLAYLIST ADD FORM ===== */
+.playlist-add-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.playlist-add-form select {
+    background: #282828;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 30px;
+    min-width: 280px;
+    font-size: 14px;
+}
+
+.playlist-add-form select:focus {
+    outline: none;
+    border-color: #6e67d1;
+}

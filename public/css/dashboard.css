@@ -556,3 +556,66 @@ audio::-webkit-media-controls-play-button {
     text-align: center;
     color: #b3b3b3;
 }
+
+/* ===== ITUNES SEARCH ===== */
+.itunes-search {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.itunes-search input {
+    flex: 1;
+    background: #282828;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+.itunes-search input:focus {
+    outline: none;
+    border-color: #6e67d1;
+}
+
+/* ===== ITUNES RESULTS ===== */
+.itunes-results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.itunes-result-row {
+    background: #181818;
+    border-radius: 10px;
+    padding: 12px 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ===== PLAYLIST INLINE FORM ===== */
+.playlist-inline-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.playlist-inline-form select {
+    background: #282828;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+/* ===== SMALL BUTTON ===== */
+.btn-sm {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}

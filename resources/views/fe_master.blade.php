@@ -39,17 +39,13 @@
         <i class="bi bi-house"></i> Home
       </a>
 
-      <a href="{{ route('bands.index') }}" class="{{ request()->routeIs('bands.*') ? 'active' : '' }}">
-        <i class="bi bi-music-note-beamed"></i> Artists
-      </a>
-
       <a href="{{ route('albums.index') }}" class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
         <i class="bi bi-disc"></i> Albums
       </a>
 
       @auth
         <a href="{{ route('playlists.index') }}" class="{{ request()->routeIs('playlists.*') ? 'active' : '' }}">
-          <i class="bi bi-list-ul"></i> MY Playlists
+          <i class="bi bi-list-ul"></i> My Playlists
         </a>
 
         <a href="{{ route('itunes.search') }}" class="{{ request()->routeIs('itunes.*') ? 'active' : '' }}">

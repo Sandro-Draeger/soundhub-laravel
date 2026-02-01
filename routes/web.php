@@ -42,20 +42,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('bands/{band}', [BandController::class, 'destroy'])->middleware('admin')->name('bands.destroy');
 });
 
-// ========== ÁLBUNS ==========
-Route::resource('albums', AlbumController::class);
-
-//users comuns podem ver lista e detalhes
+// Público
 Route::resource('albums', AlbumController::class)->only(['index', 'show']);
-// Proteger rotas específicas de álbum para admin
+
+// Admin
 Route::middleware('auth')->group(function () {
     Route::get('albums/create', [AlbumController::class, 'create'])->middleware('admin')->name('albums.create');
     Route::post('albums', [AlbumController::class, 'store'])->name('albums.store');
     Route::get('albums/{album}/edit', [AlbumController::class, 'edit'])->middleware('admin')->name('albums.edit');
     Route::put('albums/{album}', [AlbumController::class, 'update'])->middleware('admin')->name('albums.update');
     Route::delete('albums/{album}', [AlbumController::class, 'destroy'])->middleware('admin')->name('albums.destroy');
-
 });
+
 
 // ========== PLAYLISTS ==========
 Route::middleware('auth')->group(function () {
