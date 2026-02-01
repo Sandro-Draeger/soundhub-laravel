@@ -1,3 +1,4 @@
+
 @extends('fe_master')
 
 @section('content')
@@ -47,22 +48,31 @@
                     <th style="padding: 15px; text-align: center; font-weight: 600;">Ações</th>
                 </tr>
             </thead>
-                            <form method="POST" action="{{ route('playlists.remove-music') }}">
-                                @csrf
-                                <input type="hidden" name="music_id" value="{{ $music->id }}">
-                                <input type="hidden" name="playlist_id" value="{{ $playlist->id }}">
-                                <button type="submit" onclick="return confirm('Tem certeza?')" style="
-                                    background: #f44336;
-                                    color: white;
-                                    padding: 6px 12px;
-                                    border: none;
-                                    border-radius: 6px;
-                                    font-size: 12px;
-                                    font-weight: 600;
-                                    cursor: pointer;">
-                                    Remover
-                                </button>
-                            </form>
+@foreach ($playlist->musics as $music)
+
+    <form method="POST" action="{{ route('playlists.remove-music') }}">
+        @csrf
+
+        <input type="hidden" name="music_id" value="{{ $music->id }}">
+        <input type="hidden" name="playlist_id" value="{{ $playlist->id }}">
+
+        <button type="submit"
+            onclick="return confirm('Sure?')"
+            style="
+                background: #f44336;
+                color: white;
+                padding: 6px 12px;
+                border: none;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;">
+            Remover
+        </button>
+    </form>
+
+@endforeach
+
         </table>
     @else
         <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 20px; border-radius: 8px; text-align: center;">

@@ -7,9 +7,6 @@
 
     {{-- HEADER --}}
     <div class="dashboard-header">
-        <h1>Welcome, {{ auth()->user()->name }}</h1>
-
-
         @if(auth()->user()->role === 'admin')
             <div class="admin-actions">
                 <p>Manage your music collection and explore new albums.</p>

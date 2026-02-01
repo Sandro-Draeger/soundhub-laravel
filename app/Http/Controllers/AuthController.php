@@ -24,17 +24,16 @@ class AuthController extends Controller
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
 
-        if (Auth::user()->role === 'admin') {
-            return redirect()->intended('/dashboard');
-        }
+if (Auth::user()->role === 'admin') {
+    return redirect('/dashboard');
+}
 
-        // Usuário comum
-        return redirect()->route('albums.index');
-    }
+return redirect()->route('albums.index');
 
     return back()->withErrors([
         'email' => 'Credenciais inválidas.',
     ]);
+    }
 }
 
 
