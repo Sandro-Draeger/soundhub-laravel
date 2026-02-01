@@ -13,9 +13,6 @@
         @if(auth()->user()->role === 'admin')
             <div class="admin-actions">
                 <p>Manage your music collection and explore new albums.</p>
-                <a href="{{ route('bands.create') }}" class="btn btn-primary">
-                    <i class="bi bi-plus-lg"></i> Add Band
-                </a>
 
                 <a href="{{ route('itunes.search') }}" class="btn btn-secondary">
                     <i class="bi bi-music-note-list"></i> Add Album

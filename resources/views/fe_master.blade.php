@@ -60,16 +60,8 @@
           <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
 
           <div style="padding: 10px 20px; font-weight: 600; color: rgba(255,255,255,0.7); font-size: 12px;">
-            ADMINISTRADOR
+            Admin Panel
           </div>
-
-          <a href="{{ route('bands.create') }}" class="{{ request()->routeIs('bands.create') ? 'active' : '' }}">
-            <i class="bi bi-plus-circle"></i> Add Artist
-          </a>
-
-          <a href="{{ route('albums.create') }}" class="{{ request()->routeIs('albums.create') ? 'active' : '' }}">
-            <i class="bi bi-plus-circle"></i> Add Album
-          </a>
 
           <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <i class="bi bi-speedometer2"></i> Dashboard
