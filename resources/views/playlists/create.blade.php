@@ -1,4 +1,5 @@
 @extends('fe_master')
+
 <link rel="stylesheet" href="{{ asset('css/playlists.css') }}">
 
 @section('content')

@@ -1,136 +1,122 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>soundhub</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="{{ asset('fe_master.css') }}">
-<style>
-  .menu a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    transition: background 0.2s;
-    border-radius: 6px;
-  }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SoundHub</title>
 
-  .menu a:hover {
-    background: rgba(255,255,255,0.1);
-  }
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
 
-  .menu a.active {
-    background: #667eea;
-    color: white;
-  }
-</style>
-@stack('css')
+    <link rel="stylesheet" href="{{ asset('fe_master.css') }}">
+
+    @stack('css')
 </head>
 <body>
 
-    <div class="sidebar">
-     <div class="brand">
-         <img src="{{ asset('sound-hub-full.svg') }}" alt="SoundHub logo">
-     </div>
+<div class="sidebar">
 
+    {{-- BRAND --}}
+    <div class="brand">
+        <img src="{{ asset('sound-hub-full.svg') }}" alt="SoundHub logo">
+    </div>
+
+    {{-- MENU --}}
     <nav class="menu">
-        @if(auth()->check() !== 'admin')
-      <a href="{{ route('albums.index') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-        <i class="bi bi-house"></i> Home
-      </a>
-      @else
-       <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-        <i class="bi bi-house"></i> Home
-      </a>
-      @endif
 
-      <a href="{{ route('albums.index') }}" class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
-        <i class="bi bi-disc"></i> Albums
-      </a>
+        @auth
+            <a href="{{ route('albums.index') }}"
+               class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </a>
+        @endauth
 
-      @auth
-        <a href="{{ route('playlists.index') }}" class="{{ request()->routeIs('playlists.*') ? 'active' : '' }}">
-          <i class="bi bi-list-ul"></i> My Playlists
+        <a href="{{ route('albums.index') }}"
+           class="{{ request()->routeIs('albums.*') ? 'active' : '' }}">
+            <i class="bi bi-disc"></i>
+            <span>Albums</span>
         </a>
 
-        <a href="{{ route('itunes.search') }}" class="{{ request()->routeIs('itunes.*') ? 'active' : '' }}">
-          <i class="bi bi-search"></i> Buscar iTunes
-        </a>
+        @auth
+            <a href="{{ route('playlists.index') }}"
+               class="{{ request()->routeIs('playlists.*') ? 'active' : '' }}">
+                <i class="bi bi-list-ul"></i>
+                <span>My Playlists</span>
+            </a>
 
-        @if(auth()->user()->role === 'admin')
-          <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
+            <a href="{{ route('itunes.search') }}"
+               class="{{ request()->routeIs('itunes.*') ? 'active' : '' }}">
+                <i class="bi bi-search"></i>
+                <span>Buscar iTunes</span>
+            </a>
 
-          <div style="padding: 10px 20px; font-weight: 600; color: rgba(255,255,255,0.7); font-size: 12px;">
-            Admin Panel
-          </div>
+            @if(auth()->user()->role === 'admin')
+                <hr class="menu-divider">
 
-          <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <i class="bi bi-speedometer2"></i> Dashboard
-          </a>
-        @endif
+                <span class="menu-label">
+                    Admin Panel
+                </span>
 
-        <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
+                <a href="{{ route('dashboard') }}"
+                   class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            @endif
 
-        <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
-          @csrf
-          <button type="submit" style="
-            width: 100%;
-            background: none;
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-radius: 6px;
-            transition: background 0.2s;
-            font-size: 14px;
-          " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">
-            <i class="bi bi-box-arrow-right"></i> Logout
-          </button>
-        </form>
-      @else
-        <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.2);">
+            <hr class="menu-divider">
 
-        <a href="{{ route('login') }}" class="{{ request()->routeIs('login') ? 'active' : '' }}">
-          <i class="bi bi-box-arrow-in-right"></i> Login
-        </a>
+            <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                @csrf
+                <button type="submit" class="logout-btn">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </button>
+            </form>
 
-        <a href="{{ route('register') }}" class="{{ request()->routeIs('register') ? 'active' : '' }}">
-          <i class="bi bi-person-plus"></i> Register
-        </a>
-      @endauth
+        @else
+            <hr class="menu-divider">
+
+            <a href="{{ route('login') }}"
+               class="{{ request()->routeIs('login') ? 'active' : '' }}">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Login</span>
+            </a>
+
+            <a href="{{ route('register') }}"
+               class="{{ request()->routeIs('register') ? 'active' : '' }}">
+                <i class="bi bi-person-plus"></i>
+                <span>Register</span>
+            </a>
+        @endauth
+
     </nav>
 
+    {{-- USER / NOW PLAYING --}}
     <div class="now-playing">
-      @auth
-        <p style="font-size: 12px; color: rgba(255,255,255,0.7);">User</p>
-        <p style="margin: 0; font-weight: 600;">{{ auth()->user()->name }}</p>
-        @if(auth()->user()->role === 'admin')
-          <span style="display: inline-block; background: #667eea; color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-top: 5px;">ADMIN</span>
+        @auth
+            <p class="user-label">User</p>
+            <p class="user-name">{{ auth()->user()->name }}</p>
+
+            <span class="user-role {{ auth()->user()->role }}">
+                {{ strtoupper(auth()->user()->role) }}
+            </span>
         @else
-          <span style="display: inline-block; background: #666; color: white; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-top: 5px;">USER</span>
-        @endif
-      @else
-        <p>SoundHub</p>
-      @endauth
+            <p>SoundHub</p>
+        @endauth
     </div>
-  </div>
 
-  <!-- MAIN -->
-  <div class="main">
+</div>
 
-<!-- Conteúdo -->
-<main class="content">
-    @yield('content')
-</main>
-
-
-  </div>
+{{-- MAIN CONTENT --}}
+<div class="main">
+    <main class="content">
+        @yield('content')
+    </main>
+</div>
 
 </body>
-
 </html>

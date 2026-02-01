@@ -73,6 +73,9 @@
                         <th>Title</th>
                         <th>Artist</th>
                         <th>Preview</th>
+                        @if(auth()->check() && auth()->user()->role == 'user')
+                            <th>Add to Playlist</th>
+                        @endif
                         <th></th>
                     </tr>
                 </thead>

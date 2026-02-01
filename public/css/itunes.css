@@ -279,3 +279,112 @@ audio::-webkit-media-controls-play-button {
 select {
     margin-right: 6px;
 }
+/* =========================================================
+   SPOTIFY STYLE ACTION BUTTON
+========================================================= */
+.spotify-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 14px;
+    border-radius: 999px;
+
+    background: #1f1f1f;
+    color: #b3b3b3;
+
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+
+    border: 1px solid transparent;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease,
+        border-color 0.15s ease;
+}
+
+/* Hover */
+.spotify-action-btn:hover {
+    background: #6e67d1;
+    color: #000;
+    transform: translateY(-1px);
+}
+
+/* Icon */
+.spotify-action-btn i {
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* =========================================================
+   ITUNES RESULTS PAGE (ISOLATED)
+========================================================= */
+
+/* GRID */
+.itunes-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+/* CARD */
+.itunes-result-card {
+    background: #181818;
+    border-radius: 12px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.itunes-result-card:hover {
+    background: #282828;
+    transform: translateY(-4px);
+}
+
+/* COVER */
+.itunes-result-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: #333;
+}
+
+.itunes-result-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* INFO */
+.itunes-result-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.itunes-result-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.itunes-result-artist {
+    font-size: 14px;
+    color: #b3b3b3;
+    margin-bottom: 10px;
+}

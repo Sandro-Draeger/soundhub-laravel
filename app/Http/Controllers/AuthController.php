@@ -54,7 +54,7 @@ return redirect()->route('albums.index');
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
-            'role'     => 'user',  // Por padrão, usuários novos são 'user'
+            'role'     => 'user',  // Por padrão, usuários novos vão ser 'user'
         ]);
 
         Auth::login($user);

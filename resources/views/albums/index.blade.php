@@ -6,7 +6,7 @@
 <div class="albums-page">
 
     <div class="albums-header">
-        <h1 class="page-title">Albums</h1>
+        <h1 class="page-title">Welcome {{ auth()->user()->name ?? 'Guest' }}, let's explore our music collection!</h1>
 
         @if(auth()->check() && auth()->user()->role === 'admin')
             <a href="{{ route('itunes.search') }}" class="btn-primary">

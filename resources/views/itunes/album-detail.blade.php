@@ -89,7 +89,9 @@
                         <th>Song</th>
                         <th>Duration</th>
                         <th>Preview</th>
+                        @if(auth()->check() && auth()->user()->role === 'user')
                         <th>Playlist</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -119,8 +121,9 @@
                             </td>
 
                             {{-- ADD TO PLAYLIST (USER ONLY) --}}
-                            <td>
+
                                 @if(auth()->check() && auth()->user()->role === 'user')
+                                <td>
                                     <form method="POST"
                                           action="{{ route('playlist.add-song') }}"
                                           class="playlist-form">
@@ -154,8 +157,9 @@
                                     </form>
                                 @else
                                     <span class="muted">—</span>
+                                    </td>
                                 @endif
-                            </td>
+
 
                         </tr>
                     @endforeach

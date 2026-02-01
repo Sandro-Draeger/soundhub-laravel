@@ -29,7 +29,7 @@ class DashboardController extends Controller
     {
         // Apenas admins podem deletar
         if (!Auth::check() || Auth::user()->role !== 'admin') {
-            abort(403, 'Apenas administradores podem remover álbuns.');
+            abort(403, 'only administrators can remove albums.');
         }
 
         $album = Album::findOrFail($id);
@@ -47,7 +47,7 @@ class DashboardController extends Controller
     {
         // Apenas admins podem gerenciar músicas
         if (!Auth::check() || Auth::user()->role !== 'admin') {
-            abort(403, 'Apenas administradores podem gerenciar músicas.');
+            abort(403, 'only administrators can manage songs.');
         }
 
         $album = Album::with('band', 'songs')->findOrFail($id);
@@ -59,14 +59,14 @@ class DashboardController extends Controller
     {
         // Apenas admins podem remover músicas
         if (!Auth::check() || Auth::user()->role !== 'admin') {
-            abort(403, 'Apenas administradores podem remover músicas.');
+            abort(403, 'only administrators can remove songs.');
         }
 
         $song = Song::findOrFail($songId);
 
         // Verificar se a música pertence ao álbum
         if ($song->album_id != $albumId) {
-            abort(403, 'Esta música não pertence a este álbum.');
+            abort(403, 'this song does not belong to the specified album.');
         }
 
         $song->delete();

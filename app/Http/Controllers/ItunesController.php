@@ -14,22 +14,19 @@ use App\Models\Song;
 
 class ItunesController extends Controller
 {
-    /**
-     * Mostra a página de busca de artistas/álbuns
-     */
+    // Página inicial da busca
     public function searchPage()
     {
         return view('itunes.search');
     }
 
-    /**
-     * Busca artistas na API do iTunes (para AJAX)
-     */
+    // Busca artistas e álbuns (AJAX)
     public function search(Request $request)
     {
         $term = $request->input('term');
 
-        if (!$term || strlen($term) < 2) {
+        // Evita busca vazia
+        if (empty($term)) {
             return response()->json(['results' => []]);
         }
 
@@ -39,21 +36,21 @@ class ItunesController extends Controller
             'limit' => 20
         ]);
 
-        return response()->json(
-            $response->json()['results'] ?? []
-        );
+        $data = $response->json();
+
+        return response()->json($data['results'] ?? []);
     }
 
-    /**
-     * Busca resultados e mostra na página
-     */
+    // Mostra resultados da busca
     public function results(Request $request)
     {
         $term = $request->input('term');
-        $type = $request->input('type', 'artist'); // artist or album
+        $type = $request->input('type', 'artist');
 
-        if (!$term || strlen($term) < 2) {
-            return redirect()->route('itunes.search')->with('error', 'Digite algo para pesquisar');
+        if (empty($term)) {
+            return redirect()
+                ->route('itunes.search')
+                ->with('error', 'Digite algo para pesquisar');
         }
 
         $response = Http::get('https://itunes.apple.com/search', [
@@ -67,12 +64,9 @@ class ItunesController extends Controller
         return view('itunes.results', compact('results', 'term', 'type'));
     }
 
-    /**
-     * Mostra detalhes de um artista/álbum da API
-     */
+    // Detalhes do álbum e músicas
     public function show($collectionId)
     {
-        // Busca detalhes do álbum e suas músicas
         $response = Http::get('https://itunes.apple.com/lookup', [
             'id' => $collectionId,
             'entity' => 'song'
@@ -80,142 +74,158 @@ class ItunesController extends Controller
 
         $results = $response->json()['results'] ?? [];
 
-        if (empty($results)) {
-            return redirect()->route('itunes.search')->with('error', 'Álbum não encontrado');
+        if (count($results) === 0) {
+            return redirect()
+                ->route('itunes.search')
+                ->with('error', 'Álbum não encontrado');
         }
 
-        $album = array_shift($results); // primeiro é o álbum
-        $songs = $results; // resto são músicas
+        $album = null;
+        $songs = [];
+
+        foreach ($results as $index => $item) {
+
+            // Primeiro item é o álbum
+            if ($index === 0) {
+                $album = $item;
+                continue;
+            }
+
+            // Restante são músicas
+            $songs[] = $item;
+        }
 
         return view('itunes.album-detail', compact('album', 'songs', 'collectionId'));
     }
 
-    /**
-     * Importa um artista/banda da API para o banco de dados
-     */
+    // Importa artista/banda
     public function importArtist(Request $request)
     {
-        // Apenas admins podem importar
+        // Apenas admin
         if (!Auth::check() || Auth::user()->role !== 'admin') {
-            abort(403, 'Apenas administradores podem importar artistas.');
+            abort(403);
         }
 
-        $artistName = $request->input('artist_name');
-        $artistPhoto = $request->input('artist_photo');
+        $artistName = $request->artist_name;
+        $artistPhoto = $request->artist_photo;
 
-        // Verifica se a banda já existe
+        // Verifica se já existe
         $band = Band::where('name', $artistName)->first();
 
         if ($band) {
-            return back()->with('error', 'Esta banda já existe no banco de dados.');
+            return back()->with('error', 'Esta banda já existe.');
         }
 
-        // Cria nova banda
-        $band = Band::create([
+        Band::create([
             'name' => $artistName,
             'photo' => $artistPhoto
         ]);
 
-        return back()->with('success', 'Band "' . $artistName . '" imported successfully!');
+        return back()->with('success', 'Banda importada com sucesso!');
     }
 
-    /**
-     * Importa um álbum da API para o banco de dados
-     */
+    // Importa álbum e músicas
     public function importAlbum(Request $request)
     {
-        // Apenas admins podem importar
+        // Apenas admin
         if (!Auth::check() || Auth::user()->role !== 'admin') {
-
+            abort(403);
         }
 
         $request->validate([
-            'artist_name' => 'required|string',
-            'album_name' => 'required|string',
+            'artist_name' => 'required',
+            'album_name' => 'required',
             'release_date' => 'nullable|date',
-            'itunes_id' => 'nullable|string',
+            'itunes_id' => 'nullable',
         ]);
 
-        // Encontra ou cria a banda
+        // Busca ou cria a banda
         $band = Band::firstOrCreate(
-            ['name' => $request->input('artist_name')],
+            ['name' => $request->artist_name],
             ['photo' => null]
         );
 
-
-        // Busca detalhes do álbum na API para obter a imagem
+        // Busca dados do álbum no iTunes
         $albumResponse = Http::get('https://itunes.apple.com/lookup', [
-            'id' => $request->input('itunes_id'),
-            'entity' => 'album'
+            'id' => $request->itunes_id
         ]);
 
         $albumData = $albumResponse->json()['results'][0] ?? null;
-        $imageUrl = null;
+        $imagePath = null;
 
         if ($albumData && isset($albumData['artworkUrl100'])) {
-
-            $imageUrl = $this->downloadAndSaveImage($albumData['artworkUrl100'], $request->input('album_name'));
-
+            $imagePath = $this->downloadAndSaveImage(
+                $albumData['artworkUrl100'],
+                $request->album_name
+            );
         }
 
+        // Cria o álbum
         $album = Album::create([
             'band_id' => $band->id,
-            'title' => $request->input('album_name'),
+            'title' => $request->album_name,
             'artist' => $band->name,
-            'release_date' => $request->input('release_date') ? Carbon::parse($request->input('release_date')) : null,
-            'itunes_id' => $request->input('itunes_id'),
-            'image' => $imageUrl,
+            'release_date' => $request->release_date
+                ? Carbon::parse($request->release_date)
+                : null,
+            'itunes_id' => $request->itunes_id,
+            'image' => $imagePath,
         ]);
 
-
-        $response = Http::get('https://itunes.apple.com/lookup', [
-            'id' => $request->input('itunes_id'),
+        // Busca músicas do álbum
+        $songsResponse = Http::get('https://itunes.apple.com/lookup', [
+            'id' => $request->itunes_id,
             'entity' => 'song'
         ]);
 
-        $results = $response->json()['results'] ?? [];
-        array_shift($results);
+        $songsData = $songsResponse->json()['results'] ?? [];
+        $songs = [];
 
+        foreach ($songsData as $index => $song) {
 
-        foreach ($results as $songData) {
-            if (isset($songData['trackName'])) {
-                Song::create([
-                    'album_id' => $album->id,
-                    'track_name' => $songData['trackName'],
-                    'artist_name' => $songData['artistName'] ?? $request->input('artist_name'),
-                    'track_time' => $songData['trackTimeMillis'] ?? null,
-                    'preview_url' => $songData['previewUrl'] ?? null,
-                    'itunes_id' => $songData['trackId'] ?? null,
-                    'itunes_url' => $songData['trackViewUrl'] ?? null,
-                ]);
+            // Primeiro item é o álbum
+            if ($index === 0) {
+                continue;
             }
+
+            if (!isset($song['trackName'])) {
+                continue;
+            }
+
+            Song::create([
+                'album_id' => $album->id,
+                'track_name' => $song['trackName'],
+                'artist_name' => $song['artistName'] ?? $band->name,
+                'track_time' => $song['trackTimeMillis'] ?? null,
+                'preview_url' => $song['previewUrl'] ?? null,
+                'itunes_id' => $song['trackId'] ?? null,
+                'itunes_url' => $song['trackViewUrl'] ?? null,
+            ]);
         }
 
-        return back()->with('success', 'Album "' . $request->input('album_name') . '" and its songs imported successfully!');
+        return back()->with('success', 'Álbum e músicas importados!');
     }
 
-    /**
-     * Baixa e salva uma imagem da URL no storage
-     */
+    // Baixa imagem do álbum e salva no storage
     private function downloadAndSaveImage($imageUrl, $albumName)
     {
-        try {
-            $imageUrl = str_replace('100x100', '300x300', $imageUrl); // Pega uma imagem maior - A API retorna 100x100 por padrão mas existem tamanhos maiores;
+        // Troca para imagem maior
+        $imageUrl = str_replace('100x100', '300x300', $imageUrl);
 
-            // Baixa a imagem
-            $imageContent = Http::get($imageUrl)->body();
+        $imageContent = Http::get($imageUrl)->body();
 
-            // Gera um nome único para o arquivo
-            $extension = pathinfo(parse_url($imageUrl, PHP_URL_PATH), PATHINFO_EXTENSION) ?: 'jpg';
-            $fileName = 'albums/' . Str::slug($albumName) . '_' . time() . '.' . $extension;
+        $extension = pathinfo($imageUrl, PATHINFO_EXTENSION) ?: 'jpg';
 
-            // Salva no storage
-            Storage::disk('public')->put($fileName, $imageContent);
+        $fileName =
+            'albums/' .
+            Str::slug($albumName) .
+            '_' .
+            time() .
+            '.' .
+            $extension;
 
-            return $fileName;
-        } catch (\Exception $e) {
-            // Se der erro no download, retorna null
-            return null;
-        }
+        Storage::disk('public')->put($fileName, $imageContent);
+
+        return $fileName;
     }
 }
