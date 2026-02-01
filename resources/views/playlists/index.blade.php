@@ -8,7 +8,7 @@
     <header class="playlist-header">
         <h1>My Playlists</h1>
 
-        <a href="{{ route('playlists.create') }}" class="btn-primary">
+        <a href="{{ route('playlists.create') }}" class="btn-primary-create">
             + New Playlist
         </a>
     </header>
@@ -25,11 +25,12 @@
                 <div class="playlist-card">
 
                     <div class="playlist-image">
-                        <img
-                            src="{{ $playlist->cover ?? asset('images/playlist-placeholder.png') }}"
-                            alt="{{ $playlist->name }}"
-                        >
-                    </div>
+    <img
+        src="{{ asset('storage/' . $playlist->photo) }}"
+        alt="{{ $playlist->name }}"
+    >
+</div>
+
 
                     <div class="playlist-info">
                         <h3>{{ $playlist->name }}</h3>
@@ -44,26 +45,41 @@
                     </div>
 
                     <div class="playlist-actions">
-                        <a href="{{ route('playlists.show', $playlist) }}" class="btn btn-open">
-                            Open
-                        </a>
 
-                        <a href="{{ route('playlists.edit', $playlist) }}" class="btn btn-edit">
-                            Edit
-                        </a>
+    <a
+        href="{{ route('playlists.show', $playlist) }}"
+        class="icon-btn"
+        title="Open"
+    >
+        ▶
+    </a>
 
-                        <form method="POST" action="{{ route('playlists.destroy', $playlist) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button
-                                type="submit"
-                                class="btn btn-delete"
-                                onclick="return confirm('Are you sure?')"
-                            >
-                                Delete
-                            </button>
-                        </form>
-                    </div>
+    <a
+        href="{{ route('playlists.edit', $playlist) }}"
+        class="icon-btn"
+        title="Edit"
+    >
+        ✎
+    </a>
+
+    <form
+        method="POST"
+        action="{{ route('playlists.destroy', $playlist) }}"
+    >
+        @csrf
+        @method('DELETE')
+        <button
+            type="submit"
+            class="icon-btn danger"
+            title="Delete"
+            onclick="return confirm('Delete this playlist?')"
+        >
+            🗑
+        </button>
+    </form>
+
+</div>
+
 
                 </div>
             @endforeach

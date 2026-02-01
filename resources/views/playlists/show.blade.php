@@ -1,82 +1,114 @@
-
 @extends('fe_master')
 
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+
 @section('content')
-<div class="container" style="padding: 30px; max-width: 900px;">
+<div class="album-page">
 
-    <div style="margin-bottom: 30px;">
-        <a href="{{ route('playlists.index') }}" style="color: #667eea; text-decoration: none;">← Voltar às Playlists</a>
-    </div>
+    {{-- BACK --}}
+    <a href="{{ route('playlists.index') }}" class="back-link">
+        ← Back to Playlists
+    </a>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <div>
-            <h1 style="margin: 0 0 5px 0;">{{ $playlist->name }}</h1>
-            @if($playlist->description)
-                <p style="color: #666; margin: 0;">{{ $playlist->description }}</p>
-            @endif
+    {{-- HEADER --}}
+    <div class="album-header">
+        <div class="album-header-grid">
+
+            {{-- COVER --}}
+            <div class="album-cover">
+                @if($playlist->photo)
+                    <img src="{{ asset('storage/' . $playlist->photo) }}" alt="{{ $playlist->name }}">
+                @else
+                    <div class="album-cover-placeholder">Playlist</div>
+                @endif
+            </div>
+
+            {{-- INFO --}}
+            <div class="album-header-info">
+                <span class="album-type">Playlist</span>
+
+                <h1 class="album-title">{{ $playlist->name }}</h1>
+
+                @if($playlist->description)
+                    <p class="album-artist">{{ $playlist->description }}</p>
+                @endif
+
+                <p class="album-meta">
+                    {{ $playlist->musics->count() }} songs
+                </p>
+
+                <a
+                    href="{{ route('playlists.edit', $playlist) }}"
+                    class="btn-primary"
+                >
+                    Edit Playlist
+                </a>
+            </div>
+
         </div>
-        <a href="{{ route('playlists.edit', $playlist) }}" style="
-            background: #ff9800;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-        ">Editar</a>
     </div>
+
+    {{-- SONGS --}}
+    <h2 class="section-title">Songs</h2>
 
     @if(session('success'))
-        <div style="background: #4caf50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <div class="alert-success">
             {{ session('success') }}
         </div>
     @endif
 
-    @if(session('error'))
-        <div style="background: #f44336; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            {{ session('error') }}
+    @if($playlist->musics->count())
+        <div class="songs-table-wrapper">
+            <table class="songs-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Preview</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($playlist->musics as $index => $music)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $music->track_name }}</td>
+                            <td>{{ $music->artist_name }}</td>
+                            <td>
+                                @if($music->preview_url)
+                                    <audio controls>
+                                        <source src="{{ $music->preview_url }}" type="audio/mpeg">
+                                    </audio>
+                                @endif
+                            </td>
+                            <td>
+                                <form
+                                    method="POST"
+                                    action="{{ route('playlists.remove-music') }}"
+                                >
+                                    @csrf
+                                    <input type="hidden" name="music_id" value="{{ $music->id }}">
+                                    <input type="hidden" name="playlist_id" value="{{ $playlist->id }}">
+
+                                    <button
+                                        class="btn-danger btn-sm"
+                                        onclick="return confirm('Remove this song?')"
+                                    >
+                                        Remove
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
         </div>
-    @endif
-
-    @if($musics->count())
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Nº</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Nome da Música</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Artista</th>
-                    <th style="padding: 15px; text-align: left; font-weight: 600;">Álbum</th>
-                    <th style="padding: 15px; text-align: center; font-weight: 600;">Ações</th>
-                </tr>
-            </thead>
-@foreach ($playlist->musics as $music)
-
-    <form method="POST" action="{{ route('playlists.remove-music') }}">
-        @csrf
-
-        <input type="hidden" name="music_id" value="{{ $music->id }}">
-        <input type="hidden" name="playlist_id" value="{{ $playlist->id }}">
-
-        <button type="submit"
-            onclick="return confirm('Sure?')"
-            style="
-                background: #f44336;
-                color: white;
-                padding: 6px 12px;
-                border: none;
-                border-radius: 6px;
-                font-size: 12px;
-                font-weight: 600;
-                cursor: pointer;">
-            Remover
-        </button>
-    </form>
-
-@endforeach
-
-        </table>
     @else
-        <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 20px; border-radius: 8px; text-align: center;">
-            Empty playlist. Add some music to enjoy your tunes!
+        <div class="empty-state">
+            This playlist has no songs.
         </div>
     @endif
 

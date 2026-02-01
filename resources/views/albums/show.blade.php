@@ -28,6 +28,7 @@
                 <span class="album-type">Album</span>
 
                 <h1 class="album-title">{{ $album->title }}</h1>
+                <p class="album-artist">by {{ $album->artist }}</p>
 
                 <p class="album-meta">
                     {{ $album->songs->count() }} songs
@@ -54,6 +55,13 @@
 
     {{-- SONGS --}}
     <h2 class="section-title">Songs</h2>
+
+
+@if(session('success'))
+    <div class="alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
     @if($album->songs->count())
         <div class="songs-table-wrapper">
@@ -108,6 +116,11 @@
                             </td>
                         </tr>
                     @endforeach
+                     @if ($success = session('success'))
+                                            <div class="form-success">
+                                                {{ $success }}
+                                            </div>
+                                        @endif
                 </tbody>
             </table>
         </div>

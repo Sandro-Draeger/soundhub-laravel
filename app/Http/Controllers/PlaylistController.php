@@ -26,7 +26,7 @@ class PlaylistController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:5120'
         ]);
         $playlist = auth()->user()->playlists()->create([
             'name' => $request->input('name'),
@@ -64,7 +64,7 @@ class PlaylistController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:5120'
         ]);
         $playlist->update([
             'name' => $request->input('name'),
