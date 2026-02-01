@@ -15,7 +15,7 @@ use App\Http\Controllers\SongController;
 | HOME (PÚBLICO)
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () { return view('welcome'); })->name('home');
+Route::get('/', [AlbumController::class, 'index'])->name('home');
 
 
 /*
