@@ -106,7 +106,7 @@ class PlaylistController extends Controller
         return back()->with('success', 'Song added to your playlist!');
     }
 
-    public function removeMusic(Request $request)
+    public function removeSong(Request $request)
     {
         $request->validate([
             'playlist_id' => 'required|exists:playlists,id',
